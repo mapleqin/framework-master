@@ -16,7 +16,6 @@ git push -u origin master
 
 You can initialize this repository with code from a Subversion, Mercurial, or TFS project.
 
-
 ## License
 
 If you use Toaker framework code in your application you should inform the author about it ( *email: ToakerQin[at]gmail[dot]com* ) like this:
@@ -24,7 +23,7 @@ If you use Toaker framework code in your application you should inform the autho
 > **Text:** I use Toaker framework {lib_version} in {application_name} - {http://link_to_google_play}.
 > I [allow | don't allow] to mention my app in section "Applications using Toaker framework" on GitHub.
 
-    Copyright 2011-2014 Sergey Tarasevich
+    Copyright 2011-2014 Toaker framework-master
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
