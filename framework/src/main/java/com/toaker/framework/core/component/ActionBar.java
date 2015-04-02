@@ -15,8 +15,15 @@
  *******************************************************************************/
 package com.toaker.framework.core.component;
 
+import android.app.Activity;
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.toaker.framework.core.view.ActionView;
+import com.toaker.framework.core.view.SubMenuView;
+import com.toaker.framework.core.widget.PressSelector;
 
 import java.util.List;
 
@@ -31,6 +38,190 @@ import java.util.List;
  * @Time Create by 2015/3/31 10:59
  */
 public abstract class ActionBar {
+
+    protected Activity mContext;
+
+    protected ActionBar(Activity mContext){
+        this.mContext = mContext;
+    }
+
+    /**
+     * @Description: Show title bar
+     *
+     * @author Toaker  [Toaker](ToakerQin@gmail.com)
+     *                 [Toaker](http://www.toaker.com)
+     *
+     * @Time Create by 2015/4/1 16:40
+     *
+     */
+    public abstract void show();
+
+    /**
+     * @Description: Hide title bar
+     *
+     * @author Toaker  [Toaker](ToakerQin@gmail.com)
+     *                 [Toaker](http://www.toaker.com)
+     *
+     * @Time Create by 2015/4/1 16:40
+     *
+     */
+    public abstract void hide();
+
+    /**
+     * @Description: Create a title bar Action Item
+     *
+     * @author Toaker  [Toaker](ToakerQin@gmail.com)
+     *                 [Toaker](http://www.toaker.com)
+     *
+     * @Time Create by 2015/4/1 16:40
+     *
+     * @return Return Created Action Item
+     */
+    public abstract Action newAction();
+
+    /**
+     * @Description: Create a title bar SubMenu Item
+     *
+     * @author Toaker  [Toaker](ToakerQin@gmail.com)
+     *                 [Toaker](http://www.toaker.com)
+     *
+     * @Time Create by 2015/4/1 16:40
+     *
+     * @return Return Created SubMenu Item
+     */
+    public abstract SubMenu newSubMenu();
+
+    /**
+     * @Description: Setup SubMenu Item shadow line height
+     *
+     * @author Toaker  [Toaker](ToakerQin@gmail.com)
+     *                 [Toaker](http://www.toaker.com)
+     *
+     * @Time Create by 2015/4/1 16:40
+     *
+     * @param height Want set to SubMenu Item shadow line the drawable height
+     */
+    public abstract void setSubMenuItemShadowHeight(int height);
+
+    /**
+     * @Description: Setup SubMenu Item shadow line
+     *
+     * @author Toaker  [Toaker](ToakerQin@gmail.com)
+     *                 [Toaker](http://www.toaker.com)
+     *
+     * @Time Create by 2015/4/1 16:40
+     *
+     * @param drawable Want set to SubMenu Item shadow line the drawable
+     */
+    public abstract void setSubMenuItemShadow(Drawable drawable);
+
+    /**
+     * @Description: Set the Title bar of SubMenu  background color;
+     *
+     * @author Toaker  [Toaker](ToakerQin@gmail.com)
+     *                 [Toaker](http://www.toaker.com)
+     *
+     * @Time Create by 2015/4/1 16:40
+     *
+     * @param color Want to title bar of SubMenu  the background color!
+     */
+    public abstract void setSubMenuBackgroundColor(int color);
+
+    /**
+     * @Description: Set the Title bar of SubMenu  background drawable;
+     *
+     * @author Toaker  [Toaker](ToakerQin@gmail.com)
+     *                 [Toaker](http://www.toaker.com)
+     *
+     * @Time Create by 2015/4/1 16:40
+     *
+     * @param drawable Want to title bar of SubMenu the background drawable!
+     */
+    public abstract void setSubMenuBackgroundDrawable(Drawable drawable);
+
+    /**
+     * @Description: Get the Title bar background drawable;
+     *
+     * @author Toaker  [Toaker](ToakerQin@gmail.com)
+     *                 [Toaker](http://www.toaker.com)
+     *
+     * @Time Create by 2015/4/1 16:40
+     *
+     * @return title bar the background drawable
+     */
+    public abstract Drawable getBackgroundDrawable();
+
+    /**
+     * @Description: Set the Title bar background color;
+     *
+     * @author Toaker  [Toaker](ToakerQin@gmail.com)
+     *                 [Toaker](http://www.toaker.com)
+     *
+     * @Time Create by 2015/4/1 16:40
+     *
+     * @param color Want to title bar the background color!
+     */
+    public abstract void setBackgroundColor(int color);
+
+    /**
+     * @Description: Set the Title bar background drawable;
+     *
+     * @author Toaker  [Toaker](ToakerQin@gmail.com)
+     *                 [Toaker](http://www.toaker.com)
+     *
+     * @Time Create by 2015/4/1 16:40
+     *
+     * @param drawable Want to title bar the background drawable!
+     */
+    public abstract void setBackgroundDrawable(Drawable drawable);
+
+    /**
+     * @Description: Set the Title of the title bar font size;
+     *
+     * @author Toaker  [Toaker](ToakerQin@gmail.com)
+     *                 [Toaker](http://www.toaker.com)
+     *
+     * @Time Create by 2015/4/1 16:40
+     *
+     * @param size size
+     */
+    public abstract void setTitleTextSize(float size);
+
+    /**
+     * @Description: Set the Title of the title bar font color;
+     *
+     * @author Toaker  [Toaker](ToakerQin@gmail.com)
+     *                 [Toaker](http://www.toaker.com)
+     *
+     * @Time Create by 2015/4/1 16:40
+     *
+     * @param color color
+     */
+    public abstract void setTitleTextColor(int color);
+
+    /**
+     * @Description: Set the Title to title bar;
+     *
+     * @author Toaker  [Toaker](ToakerQin@gmail.com)
+     *                 [Toaker](http://www.toaker.com)
+     *
+     * @Time Create by 2015/4/1 16:40
+     *
+     * @param title title
+     */
+    public abstract void setTitle(CharSequence title);
+
+    /**
+     * @Description: Get the Title by title bar;
+     *
+     * @author Toaker  [Toaker](ToakerQin@gmail.com)
+     *                 [Toaker](http://www.toaker.com)
+     *
+     * @Time Create by 2015/4/1 16:40
+     *
+     * @return Title!
+     */
+    public abstract CharSequence getTitle();
 
     /**
      * @Description: Add a action button to title bar left
@@ -195,6 +386,116 @@ public abstract class ActionBar {
      */
     public static class SubMenu{
 
+        private SubMenuView mSubMenuView;
+
+        private SubMenu(Context context){
+            this.mSubMenuView = new SubMenuView(context);
+        }
+
+        protected SubMenu create(Context context){
+            return new SubMenu(context);
+        }
+
+        public SubMenu setSort(int desc){
+            this.mSubMenuView.setSort(desc);
+            return this;
+        }
+
+        public SubMenu setTextSize(float size){
+            this.mSubMenuView.setTextSize(size);
+            return this;
+        }
+
+        public SubMenu setTextColor(int color){
+            this.mSubMenuView.setTextColor(color);
+            return this;
+        }
+
+        public SubMenu setText(CharSequence text){
+            this.mSubMenuView.setText(text);
+            return this;
+        }
+
+        public SubMenu setText(int resId){
+            this.mSubMenuView.setText(resId);
+            return this;
+        }
+
+        public SubMenu setIcon(int resId){
+            this.mSubMenuView.setIcon(resId);
+            return this;
+        }
+
+        public SubMenu setIcon(Drawable drawable){
+            this.mSubMenuView.setIcon(drawable);
+            return this;
+        }
+
+        public PressSelector getPressSelector() {
+            return mSubMenuView.getPressSelector();
+        }
+
+        public SubMenu setPressSelector(PressSelector mPressSelector) {
+            this.mSubMenuView.setPressSelector(mPressSelector);
+            return this;
+        }
+
+        public SubMenu setSubMenuSize(int width,int height){
+            this.mSubMenuView.setSubMenuSize(width,height);
+            return this;
+        }
+
+        public SubMenu setSubMenuClickListener(ActionBar.SubMenuClickListener listener){
+            this.mSubMenuView.setSubMenuClickListener(listener);
+            return this;
+        }
+
+        public SubMenu setSubMenuLongClickListener(ActionBar.SubMenuLongClickListener listener){
+            this.mSubMenuView.setSubMenuLongClickListener(listener);
+            return this;
+        }
+
+        public SubMenu setPadding(int left, int top, int right, int bottom) {
+            this.mSubMenuView.setPadding(left,top,right,bottom);
+            return this;
+        }
+
+        public SubMenu setSpacing(float spacing){
+            this.mSubMenuView.setSpacing(spacing);
+            return this;
+        }
+
+        public SubMenuView getSubMenuView(){
+            return this.mSubMenuView;
+        }
+    }
+
+    /**
+     * Decorator for framework-master
+     *
+     * @author Toaker (ToakerQin@gmail.com)
+     *         (<a href='http://www.toaker.com'>http://www.toaker.com</a>)
+     *
+     * @Description: The Title bar Action click listener
+     *
+     * @Time Create by 2015/3/31 10:59
+     */
+    public static interface SubMenuClickListener extends View.OnClickListener{
+
+    }
+
+    /**
+     * Decorator for framework-master
+     *
+     * @author Toaker (ToakerQin@gmail.com)
+     *         (<a href='http://www.toaker.com'>http://www.toaker.com</a>)
+     *
+     * @Description: The Title bar Action long click listener
+     *
+     * @Time Create by 2015/3/31 10:59
+     */
+    public static interface SubMenuLongClickListener extends View.OnLongClickListener{
+
     }
 
     /**
@@ -208,6 +509,125 @@ public abstract class ActionBar {
      * @Time Create by 2015/3/31 10:59
      */
     public static class Action{
+
+        private ActionView mActionView;
+
+        private Action(Context context){
+            this.mActionView = new ActionView(context);
+        }
+
+        public Action create(Context context){
+            return new Action(context);
+        }
+
+        public Action setTextSize(float size){
+            this.mActionView.setTextSize(size);
+            return this;
+        }
+
+        public Action setId(int id){
+            this.mActionView.setId(id);
+            return this;
+        }
+
+        public int getId(){
+            return this.mActionView.getId();
+        }
+
+        public Action setTextColor(int color){
+            this.mActionView.setTextColor(color);
+            return this;
+        }
+
+        public Action setText(CharSequence text){
+            this.mActionView.setText(text);
+            return this;
+        }
+
+        public Action setText(int resId){
+            this.mActionView.setText(resId);
+            return this;
+        }
+
+        public Action setIcon(int resId){
+            this.mActionView.setIcon(resId);
+            return this;
+        }
+
+        public Action setIcon(Drawable drawable){
+            this.mActionView.setIcon(drawable);
+            return this;
+        }
+
+        public PressSelector getPressSelector() {
+            return mActionView.getPressSelector();
+        }
+
+        public Action setPressSelector(PressSelector mPressSelector) {
+            this.mActionView.setPressSelector(mPressSelector);
+            return this;
+        }
+
+        public Action setActionSize(int width,int height){
+            this.mActionView.setActionSize(width,height);
+            return this;
+        }
+
+        public Action setActionClickListener(ActionBar.ActionClickListener listener){
+            this.mActionView.setActionClickListener(listener);
+            return this;
+        }
+
+        public Action setActionLongClickListener(ActionBar.ActionLongClickListener listener){
+            this.mActionView.setActionLongClickListener(listener);
+            return this;
+        }
+
+        public ActionView getActionView(){
+            return this.mActionView;
+        }
+
+        public Action setPadding(int left, int top, int right, int bottom) {
+            this.mActionView.setPadding(left,top,right,bottom);
+            return this;
+        }
+
+        public Action show(){
+            this.mActionView.setVisibility(View.VISIBLE);
+            return this;
+        }
+
+        public Action hide(){
+            this.mActionView.setVisibility(View.GONE);
+            return this;
+        }
+    }
+
+    /**
+     * Decorator for framework-master
+     *
+     * @author Toaker (ToakerQin@gmail.com)
+     *         (<a href='http://www.toaker.com'>http://www.toaker.com</a>)
+     *
+     * @Description: The Title bar Action click listener
+     *
+     * @Time Create by 2015/3/31 10:59
+     */
+    public static interface ActionClickListener extends View.OnClickListener{
+
+    }
+
+    /**
+     * Decorator for framework-master
+     *
+     * @author Toaker (ToakerQin@gmail.com)
+     *         (<a href='http://www.toaker.com'>http://www.toaker.com</a>)
+     *
+     * @Description: The Title bar Action long click listener
+     *
+     * @Time Create by 2015/3/31 10:59
+     */
+    public static interface ActionLongClickListener extends View.OnLongClickListener{
 
     }
 
