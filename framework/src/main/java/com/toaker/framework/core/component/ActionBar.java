@@ -46,6 +46,17 @@ public abstract class ActionBar {
     }
 
     /**
+     * @Description: Set the title bar of TitleView;
+     *
+     * @author Toaker  [Toaker](ToakerQin@gmail.com)
+     *                 [Toaker](http://www.toaker.com)
+     *
+     * @Time Create by 2015/4/1 16:40
+     *
+     */
+    public abstract void setTitleView(View titleView);
+
+    /**
      * @Description: Show title bar
      *
      * @author Toaker  [Toaker](ToakerQin@gmail.com)
