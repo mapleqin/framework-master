@@ -39,6 +39,11 @@ public class ActionBarImpl extends ActionBar {
     }
 
     @Override
+    public void setTitleView(View titleView) {
+
+    }
+
+    @Override
     public void show() {
 
     }

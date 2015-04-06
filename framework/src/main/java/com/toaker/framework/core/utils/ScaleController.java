@@ -60,7 +60,8 @@ public class ScaleController {
 
     public static ScaleController getInstance() {
         if (ScaleController.mInstance == null) {
-            throw new IllegalStateException("Not initialized!");
+//            throw new IllegalStateException("Not initialized!");
+            return null;
         }
 
         return ScaleController.mInstance;
