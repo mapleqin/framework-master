@@ -1,13 +1,15 @@
 package com.toaker.framework.demo;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
+import com.toaker.framework.app.Framework;
 import com.toaker.framework.base.BaseActionBarActivity;
 import com.toaker.framework.core.component.NavigationBar;
-import com.toaker.framework.core.utils.ScaleController;
 import com.toaker.framework.core.widget.NavigationBarImpl;
 
 
@@ -19,7 +21,7 @@ public class MainActivity extends BaseActionBarActivity implements NavigationBar
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ScaleController.init(this);
+        Framework.init(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mNavigationBar = (NavigationBar) findViewById(R.id.navigation_bar);
@@ -32,7 +34,7 @@ public class MainActivity extends BaseActionBarActivity implements NavigationBar
         mActionBarWrapper.setCenterTextSize(18);
 //        mActionBarWrapper.setDisplayShowHomeEnabled(false);
 
-        mNavigationBar.setBackgroundColor(Color.CYAN);
+        mNavigationBar.setBackgroundColor(0xFF484848);
         mNavigationBar.setNavigationChangeListener(this);
 
         NavigationBarImpl.IconNavigationImpl square = new NavigationBarImpl.IconNavigationImpl(
@@ -69,6 +71,14 @@ public class MainActivity extends BaseActionBarActivity implements NavigationBar
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+        if(item.getItemId() == R.id.volley){
+            startActivity(new Intent(this, VolleyActivity.class));
+            return true;
+        }
+        return super.onMenuItemSelected(featureId, item);
+    }
 
     @Override
     public void onChange(View view, NavigationBar.Navigation navigation, int position) {
