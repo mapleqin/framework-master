@@ -15,6 +15,8 @@
  *******************************************************************************/
 package com.android.volley;
 
+import com.android.volley.toolbox.VolleyErrorWrapper;
+
 /**
  * Decorator for framework-master
  *
@@ -23,15 +25,19 @@ package com.android.volley;
  * @Description:
  * @Time Create by 2015/4/8 12:21
  */
-public class ListenerWrapper<T> implements Response.Listener<T>,Response.ErrorListener {
+public abstract class ListenerWrapper<T> implements Response.Listener<T>,Response.ErrorListener {
 
     @Override
     public void onResponse(T response) {
-
+        onSuccess(response);
     }
 
     @Override
     public void onErrorResponse(VolleyError error) {
-
+        onError(VolleyErrorWrapper.allocate(error));
     }
+
+    public abstract void onSuccess(T response);
+
+    public abstract void onError(VolleyErrorWrapper error);
 }
