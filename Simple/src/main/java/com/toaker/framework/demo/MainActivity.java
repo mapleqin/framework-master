@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.toaker.framework.app.Framework;
-import com.toaker.framework.base.BaseActionBarActivity;
+import com.toaker.framework.core.surface.activity.BaseActionBarActivity;
 import com.toaker.framework.core.component.NavigationBar;
 import com.toaker.framework.core.widget.NavigationBarImpl;
 

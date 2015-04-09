@@ -7,20 +7,21 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.ListenerWrapper;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.JsonDataRequest;
 import com.android.volley.toolbox.Volley;
+import com.android.volley.toolbox.VolleyErrorWrapper;
 import com.google.gson.Gson;
-import com.toaker.framework.base.BaseActionBarActivity;
+import com.toaker.framework.core.surface.activity.BaseActionBarActivity;
+
+import java.util.ArrayList;
 
 
 public class VolleyActivity extends BaseActionBarActivity {
 
-
-    private String[] mHomeData;
+    private ArrayList<String>  mData;
 
     RequestQueue mRequestQueue;
 
@@ -39,23 +40,24 @@ public class VolleyActivity extends BaseActionBarActivity {
         mListAdapter = new ListAdapter();
         mListView.setAdapter(mListAdapter);
 
-        request.setShouldCache(true);
-        request.setRefreshNeeded(false);
-        mRequestQueue.add(request);
+        mJsonData.setShouldCache(true);
+        mJsonData.setRefreshNeeded(false);
+        mRequestQueue.add(mJsonData);
     }
 
-    StringRequest request = new StringRequest(Request.Method.GET, "http://www.svmeng.com/volley_test.php?page=1",new Response.Listener<String>() {
+
+    JsonDataRequest<ArrayList<String>> mJsonData = new JsonDataRequest<ArrayList<String>>(Request.Method.GET,
+            "http://www.svmeng.com/volley_test.php?page=1",null,new ListenerWrapper<ArrayList<String>>() {
         @Override
-        public void onResponse(String response) {
-            mHomeData = mGson.fromJson(response, String[].class);
-            if(mHomeData != null){
+        public void onSuccess(ArrayList<String> response) {
+            mData = response;
+            if(mData != null){
                 mListAdapter.notifyDataSetChanged();
             }
-
         }
-    },new Response.ErrorListener() {
+
         @Override
-        public void onErrorResponse(VolleyError error) {
+        public void onError(VolleyErrorWrapper error) {
 
         }
     });
@@ -65,10 +67,10 @@ public class VolleyActivity extends BaseActionBarActivity {
 
         @Override
         public int getCount() {
-            if(mHomeData == null){
+            if(mData == null){
                 return 0;
             }
-            return mHomeData.length;
+            return mData.size();
         }
 
         @Override
@@ -91,7 +93,7 @@ public class VolleyActivity extends BaseActionBarActivity {
             }else {
                 textView = (TextView) convertView;
             }
-            textView.setText(mHomeData[position]);
+            textView.setText(mData.get(position));
             return convertView;
         }
     }

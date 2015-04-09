@@ -16,6 +16,8 @@
 package com.toaker.framework.app;
 
 import android.content.Context;
+import android.util.DisplayMetrics;
+import android.view.WindowManager;
 
 import com.toaker.framework.core.utils.ScaleController;
 import com.toaker.framework.utils.ResourceUtils;
@@ -30,12 +32,29 @@ import com.toaker.framework.utils.ResourceUtils;
  */
 public class Framework {
 
+    private String mBaseUrl = "";
+
+    private int mScreenHeight = 0;
+
+    private int mScreenWidth  = 0;
+
     private static Framework instance;
 
     private Context mContext;
 
     private Framework(Context context){
         this.mContext = context;
+        DisplayMetrics metrics = new DisplayMetrics();
+        ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE))
+                .getDefaultDisplay().getMetrics(metrics);
+        this.mScreenWidth = metrics.widthPixels;
+        this.mScreenHeight = metrics.heightPixels;
+
+        initImageLoad();
+    }
+
+    private void initImageLoad() {
+
     }
 
     public static Framework getInstance(){
@@ -50,6 +69,47 @@ public class Framework {
     }
 
     /**
+     *
+     * Resource String :
+     *           * 未知错误
+     *           volley_error_message_unknown
+     *
+     *           * 无连接
+     *           volley_error_message_no_connection
+     *
+     *           * 网络错误
+     *           volley_error_message_network
+     *
+     *           * 认证失败
+     *           volley_error_message_auth_failure
+     *
+     *           * 超时
+     *           volley_error_message_timeout
+     *
+     *           * 解析时错误
+     *           volley_error_message_parse
+     *
+     *           * 服务器错误
+     *           volley_error_message_server
+     *
+     * Resource  drawable:
+     *           * 加载中图片
+     *           image_load_loading
+     *
+     *           * 加载失败图片
+     *           image_load_failure
+     *
+     *           * 图片为空
+     *           image_load_empty
+     *
+     *
+     * <activity
+     *   android:name="com.toaker.framework.core.surface.activity.ReusingActivity"
+     *   android:allowBackup="true"
+     *   android:screenOrientation="portrait"
+     *   android:theme="theme"
+     *   android:windowSoftInputMode="adjustResize" />
+     *
      * initialize
      * @param context
      */
@@ -62,5 +122,21 @@ public class Framework {
         }
         ResourceUtils.init(context);
         ScaleController.init(context);
+    }
+
+    public int getScreenHeight() {
+        return this.mScreenHeight;
+    }
+
+    public int getScreenWidth() {
+        return this.mScreenWidth;
+    }
+
+    public String getBaseUrl() {
+        return mBaseUrl;
+    }
+
+    public void setBaseUrl(String mBaseUrl) {
+        this.mBaseUrl = mBaseUrl;
     }
 }
