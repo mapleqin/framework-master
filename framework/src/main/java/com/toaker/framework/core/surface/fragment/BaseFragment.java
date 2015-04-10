@@ -1,229 +1,109 @@
 package com.toaker.framework.core.surface.fragment;
 
 
-import android.app.Activity;
-import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.ImageButton;
+import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.umeng.analytics.MobclickAgent;
-import com.xiaodao360.xiaodaow.R;
-import com.xiaodao360.xiaodaow.utils.DbUtils;
-import com.xiaodao360.xiaodaow.utils.FakerGlobal;
-import com.xiaodao360.xiaodaow.utils.GsonUtils;
-import com.xiaodao360.xiaodaow.utils.TKImageLoad;
-import com.xiaodao360.xiaodaow.view.LoadingDialog;
+import com.toaker.framework.core.view.NoTouchLayout;
 
+public abstract class BaseFragment extends AbsFragment implements View.OnClickListener{
 
-public abstract class BaseFragment extends AbsFragment implements ReusingActivity.onBackPressedListener, FragmentAnimation,View.OnClickListener{
+    FrameLayout mContainerView;
 
-    protected TKImageLoad mBitmapUtils;
+    View        mEmptyLayout;
 
-    protected DbUtils mDbManager;
-
-    protected GsonUtils   mGsonManager;
-
-    protected ImageButton mActionLeft;
-
-    protected ImageButton mActionRight;
-
-    protected TextView    mTextMiddle;
-
-    protected RelativeLayout mTitleBarGroup;
-
-    private InputMethodManager mInputManager;
-
-    protected int titleBarH = 0;
-
-    protected com.xiaodao360.xiaodaow.utils.net.request.HttpManager mVolleyManager;
-
-    protected ViewGroup mLoadingLayout;
-
-    protected LoadingDialog mLoadingDialog;
-
-    ViewGroup decorView;
-
-    View v;
+    View        mLoadingLayout;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
-        v = LayoutInflater.from(getActivity()).inflate(R.layout.loading_default_layout,null);
-        mLoadingLayout = (ViewGroup) v.findViewById(R.id.xi_loading_on_loading);
-        decorView = (ViewGroup) getActivity().getWindow().getDecorView();
-        if(decorView != null){
-            decorView.addView(v);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if(mContainerView == null){
+            mContainerView = new FrameLayout(getActivity());
+            mEmptyLayout = attachEmptyLayout(inflater,mContainerView);
+            mLoadingLayout =  attachLoadingLayout(inflater,mContainerView);
         }
-
-        mVolleyManager = new com.xiaodao360.xiaodaow.utils.net.request.HttpManager(getActivity());
-        mInputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        titleBarH = (int) (FakerGlobal.SCREEN_HEIGHT / 13.0f);
-        mBitmapUtils = TKImageLoad.getInstance();
-        mDbManager = DbUtils.getInstance();
-        mGsonManager = new GsonUtils();
-        mLoadingDialog = LoadingDialog.create(getActivity());
-    }
-
-    protected void registerBackListener(){
-        if(mActionLeft == null){
-            return;
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+        if(container.indexOfChild(mContainerView) == -1){
+            container.addView(mContainerView,ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         }
-        mActionLeft.setImageResource(R.drawable.back_icon);
-        mActionLeft.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-    }
-	
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-        loadData();
+        return view;
     }
 
-    public BaseFragment() {
+    /**
+     * see Attach an empty status page
+     * @param inflater
+     * @param container
+     * @return
+     */
+    protected View attachEmptyLayout(LayoutInflater inflater,ViewGroup container){
+        return null;
+    }
+
+    /**
+     * see Attach an loading status page
+     * @param inflater
+     * @param container
+     * @return
+     */
+    protected View attachLoadingLayout(LayoutInflater inflater,ViewGroup container){
+        NoTouchLayout mNoTouchLayout = new NoTouchLayout(getActivity());
+        mNoTouchLayout.setBackgroundColor(Color.WHITE);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        ProgressBar mProgressBar = new ProgressBar(getActivity());
+        params.addRule(RelativeLayout.CENTER_IN_PARENT);
+        mNoTouchLayout.addView(mProgressBar,params);
+        container.addView(mNoTouchLayout,ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        mNoTouchLayout.setVisibility(View.GONE);
+        return mNoTouchLayout;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mActionLeft = F(R.id.xi_titlebar_left_action);
-        mActionRight = F(R.id.xi_titlebar_right_action);
-        mTextMiddle = F(R.id.xi_titlebar_middle_text);
-        mTitleBarGroup = F(R.id.xi_titlebar_group);
-        if(mTitleBarGroup != null) mTitleBarGroup.setLayoutParams(new RelativeLayout.LayoutParams(FakerGlobal.SCREEN_WIDTH, titleBarH));
-        initializeTitle();
-        init();
-        setListener();
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
-
-
-    @Override
-    public boolean onBackPressed() {
-        return false;
-    }
-
-    protected abstract void initializeTitle();
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-    }
-
-    @Override
-    public void onFinish() {
-        if(isTopAnimation){
-            getActivity().overridePendingTransition(R.anim.fragment_slide_bottom_back_in,R.anim.fragment_slide_top_back_out);
-        }else {
-            getActivity().overridePendingTransition(R.anim.fragment_slide_right_back_in, R.anim.fragment_slide_left_back_out);
-        }
+        displayEmptyLayout(true);
+        displayLoadingLayout(true);
     }
 
     /**
-	 * 初始化
-	 */
-	protected abstract void init();
-
-    /**
-     * 显示加载图像
+     * Switch the empty status page displays a status
+     * @param display
      */
-    public void showLoading(){
-        if(mLoadingLayout != null&&mLoadingLayout.getVisibility() != View.VISIBLE){
-            mLoadingLayout.setVisibility(View.VISIBLE);
+    public void displayEmptyLayout(boolean display){
+        if(mEmptyLayout != null){
+            if(display && mEmptyLayout.getVisibility() != View.VISIBLE){
+                mEmptyLayout.setVisibility(View.VISIBLE);
+            }else if(!display && mEmptyLayout.getVisibility() != View.GONE){
+                mEmptyLayout.setVisibility(View.GONE);
+            }else {
+                // Noting
+            }
         }
     }
 
     /**
-     * 隐藏加载图像
+     * Switch the loading status page displays a status
+     * @param display
      */
-    public void hideLoading(){
-        if(mLoadingLayout != null&&mLoadingLayout.getVisibility() != View.GONE){
-            mLoadingLayout.setVisibility(View.GONE);
+    public void displayLoadingLayout(boolean display){
+        if(mLoadingLayout != null){
+            if(display && mLoadingLayout.getVisibility() != View.VISIBLE){
+                mLoadingLayout.setVisibility(View.VISIBLE);
+            }else if(!display && mLoadingLayout.getVisibility() != View.GONE){
+                mLoadingLayout.setVisibility(View.GONE);
+            }else {
+                // Noting
+            }
         }
-    }
-
-    /**
-     * 找到控件
-     * @param resId
-     * @param <T>
-     * @return
-     */
-    protected <T> T F(int resId){
-        if(getView() != null){
-            return (T)(getView().findViewById(resId));
-        }
-        return null;
-    }
-	
-	/**
-	 * 设置监听
-	 */
-	protected abstract void  setListener();
-	
-	
-	/**
-	 * 加载数据
-	 */
-	protected abstract void  loadData();
-	
-	@Override
-	public void onResume() {
-		super.onResume();
-        if(getActivity() instanceof ReusingActivity){
-            ((ReusingActivity)getActivity()).setOnBackPressedListener(this);
-        }
-        MobclickAgent.onPageStart(((Object)this).getClass().getSimpleName()); //统计页面
-        if(getView() != null)
-        mInputManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-    }
-	
-	@Override
-	public void onPause() {
-		super.onPause();
-        if(getActivity() instanceof ReusingActivity){
-            ((ReusingActivity)getActivity()).removeOnBackPressedListener();
-        }
-        MobclickAgent.onPageEnd(((Object)this).getClass().getSimpleName());
-        mInputManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-    }
-	
-	@Override
-	public void onClick(View v) {
-	}
-
-
-    public TextView getTextMiddle() {
-        return mTextMiddle;
-    }
-
-    public ImageButton getActionRight() {
-        return mActionRight;
-    }
-
-    public ImageButton getActionLeft() {
-        return mActionLeft;
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if(decorView != null && v.getParent() != null){
-            decorView.removeView(v);
-        }
-
     }
 }

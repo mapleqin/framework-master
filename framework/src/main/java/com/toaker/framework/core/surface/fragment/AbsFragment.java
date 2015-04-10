@@ -7,9 +7,14 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.toaker.framework.core.surface.FragmentParameter;
+import com.toaker.framework.core.surface.activity.ReusingActivity;
+import com.toaker.framework.core.surface.activity.ReusingActivityHelper;
 
 
 public abstract class AbsFragment extends Fragment {
@@ -151,9 +156,37 @@ public abstract class AbsFragment extends Fragment {
 	 * @param resId
 	 * @return
 	 */
-	public View findViewById(int resId) {
-		return this.getView().findViewById(resId);
+	public<T> T findViewById(int resId) {
+		return (T) this.getView().findViewById(resId);
 	}
 
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        return true;
+    }
 
+    public FragmentParameter getFragmentParameter(){
+        if(getReusingActivity() != null){
+            return getReusingActivity().getFragmentParameter();
+        }
+        return null;
+    }
+
+    public ReusingActivity getReusingActivity(){
+        if(getActivity() instanceof ReusingActivity){
+            return (ReusingActivity)getActivity();
+        }
+        return null;
+    }
+
+    public void jumpFragment(FragmentParameter parameter){
+        if(parameter == null || parameter.getFragmentClass() == null){
+            throw new IllegalArgumentException("Want to jump the fragments of information cannot be NULL");
+        }
+        Intent intent = ReusingActivityHelper.builder(getActivity()).setFragmentParameter(parameter).build();
+        if(parameter.getRequestCode() != -1){
+            startActivityForResult(intent,parameter.getRequestCode());
+        }else {
+            startActivity(intent);
+        }
+    }
 }

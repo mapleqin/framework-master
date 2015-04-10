@@ -13,7 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.android.volley.toolbox;
+package com.toaker.framework.core.surface.activity;
+
+import android.app.ActionBar;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+
+import com.toaker.framework.core.component.ActionBarWrapper;
 
 /**
  * Decorator for framework-master
@@ -21,15 +27,25 @@ package com.android.volley.toolbox;
  * @author Toaker [Toaker](ToakerQin@gmail.com)
  *         [Toaker](http://www.toaker.com)
  * @Description:
- * @Time Create by 2015/4/8 14:01
+ * @Time Create by 2015/4/6 21:25
  */
-public interface ResponseWrapper {
+public class BaseActionBarFragmentActivity extends FragmentActivity {
 
-    public static final String FIELD_NAME_PAGE_NUM          = "page_num";
+    protected ActionBarWrapper mActionBarWrapper;
 
-    public static final String FIELD_NAME_TOTAL_PAGE        = "total_page";
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mActionBarWrapper = new ActionBarWrapper(getActionBar());
+    }
 
-    public static final String FIELD_NAME_TOTAL_COUNT       = "total_count";
+    @Override
+    @Deprecated
+    public ActionBar getActionBar() {
+        return super.getActionBar();
+    }
 
-    public static final String FIELD_NAME_PAGE_SIZE         = "page_size";
+    public ActionBarWrapper getActionBarWrapper() {
+        return mActionBarWrapper;
+    }
 }

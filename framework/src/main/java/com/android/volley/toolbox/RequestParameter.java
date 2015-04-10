@@ -17,6 +17,8 @@ package com.android.volley.toolbox;
 
 import android.text.TextUtils;
 
+import com.android.volley.Request;
+
 import java.io.File;
 import java.util.Collections;
 import java.util.Map;
@@ -30,6 +32,8 @@ import java.util.Map;
  * @Time Create by 2015/4/8 14:03
  */
 public final class RequestParameter {
+
+    private int                mHttpMethod = Request.Method.GET;
 
     private Map<String,String> mStringParams;
 
@@ -64,6 +68,14 @@ public final class RequestParameter {
     public RequestParameter addQueryStringParameter(String key, String value) {
         add(key, value);
         return this;
+    }
+
+    public int getMethod() {
+        return mHttpMethod;
+    }
+
+    public void setMethod(int mHttpMethod) {
+        this.mHttpMethod = mHttpMethod;
     }
 
     public Map<String, String> getStringParams() {

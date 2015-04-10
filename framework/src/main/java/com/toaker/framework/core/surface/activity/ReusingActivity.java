@@ -2,12 +2,12 @@ package com.toaker.framework.core.surface.activity;
 
 import android.app.ActionBar;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.view.KeyEvent;
 
 import com.toaker.framework.core.surface.FragmentParameter;
 import com.toaker.framework.core.surface.fragment.AbsFragment;
 
-public class ReusingActivity extends FragmentActivity {
+public class ReusingActivity extends BaseActionBarFragmentActivity {
 
     private ReusingActivityHelper helper;
 
@@ -55,5 +55,17 @@ public class ReusingActivity extends FragmentActivity {
 
     public AbsFragment getCurrentFragment() {
         return mCurrentFragment;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(mCurrentFragment != null){
+            return super.onKeyDown(keyCode,event) && mCurrentFragment.onKeyDown(keyCode,event);
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    public FragmentParameter getFragmentParameter() {
+        return mFragmentParameter;
     }
 }

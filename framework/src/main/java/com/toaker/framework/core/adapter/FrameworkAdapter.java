@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.toaker.framework.core.surface.FragmentParameter;
+import com.toaker.framework.core.surface.activity.ReusingActivityHelper;
+
 import java.util.List;
 
 public abstract class FrameworkAdapter<T> extends BaseAdapter {
@@ -84,12 +87,31 @@ public abstract class FrameworkAdapter<T> extends BaseAdapter {
     }
 
     public void startActivity(Intent intent){
-        mContext.startActivity(intent);
+        if(getActivity() != null){
+            getActivity().startActivity(intent);
+        }
+    }
+    public void startActivityForResult(Intent intent,int result){
+        if(getActivity() != null){
+            getActivity().startActivityForResult(intent,result);
+        }
     }
 
     public void overridePendingTransition(int enterAnim, int exitAnim){
         if(getActivity() != null){
             getActivity().overridePendingTransition(enterAnim,exitAnim);
+        }
+    }
+
+    public void jumpFragment(FragmentParameter parameter){
+        if(parameter == null || parameter.getFragmentClass() == null){
+            throw new IllegalArgumentException("Want to jump the fragments of information cannot be NULL");
+        }
+        Intent intent = ReusingActivityHelper.builder(getActivity()).setFragmentParameter(parameter).build();
+        if(parameter.getRequestCode() != -1){
+            startActivityForResult(intent,parameter.getRequestCode());
+        }else {
+            startActivity(intent);
         }
     }
 }

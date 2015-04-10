@@ -13,7 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.android.volley.toolbox;
+package com.toaker.framework.utils;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
+import com.toaker.framework.app.Framework;
 
 /**
  * Decorator for framework-master
@@ -21,15 +25,15 @@ package com.android.volley.toolbox;
  * @author Toaker [Toaker](ToakerQin@gmail.com)
  *         [Toaker](http://www.toaker.com)
  * @Description:
- * @Time Create by 2015/4/8 14:01
+ * @Time Create by 2015/4/9 13:40
  */
-public interface ResponseWrapper {
+public final class VolleyHelper {
 
-    public static final String FIELD_NAME_PAGE_NUM          = "page_num";
-
-    public static final String FIELD_NAME_TOTAL_PAGE        = "total_page";
-
-    public static final String FIELD_NAME_TOTAL_COUNT       = "total_count";
-
-    public static final String FIELD_NAME_PAGE_SIZE         = "page_size";
+    /**
+     *
+     * @return
+     */
+    public static RequestQueue newRequestQueue(){
+        return Volley.newRequestQueue(Framework.getInstance().getContext());
+    }
 }

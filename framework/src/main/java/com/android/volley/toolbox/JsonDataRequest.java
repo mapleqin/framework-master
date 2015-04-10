@@ -51,12 +51,26 @@ public class JsonDataRequest<T> extends Request<T> {
 
     private Gson    mJsonUtils;
 
-    public JsonDataRequest(int method, String url, RequestParameter params,ListenerWrapper<T> listener) {
+    public JsonDataRequest(int method, String url, RequestParameter params,ListenerWrapper<T> listener,boolean cache,boolean needRefresh) {
         super(method, url, listener);
         this.params = params;
         this.mListener = listener;
         mJsonUtils = new Gson();
         setRetryPolicy(new DefaultRetryPolicy(8000, 0, 1.0f));
+        setRefreshNeeded(needRefresh);
+        setShouldCache(cache);
+    }
+
+    public JsonDataRequest(int method, String url, RequestParameter params,ListenerWrapper<T> listener,boolean cache) {
+        this(method,url,params,listener,cache,true);
+    }
+
+    public JsonDataRequest(int method, String url, RequestParameter params,ListenerWrapper<T> listener) {
+        this(method,url,params,listener,true);
+    }
+
+    public JsonDataRequest(int method, String url,ListenerWrapper<T> listener) {
+        this(method,url,null,listener);
     }
 
     @Override

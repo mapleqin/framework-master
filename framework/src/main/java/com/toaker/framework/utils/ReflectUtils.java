@@ -13,7 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.android.volley.toolbox;
+package com.toaker.framework.utils;
+
+import android.text.TextUtils;
+
+import java.lang.reflect.Field;
 
 /**
  * Decorator for framework-master
@@ -21,15 +25,28 @@ package com.android.volley.toolbox;
  * @author Toaker [Toaker](ToakerQin@gmail.com)
  *         [Toaker](http://www.toaker.com)
  * @Description:
- * @Time Create by 2015/4/8 14:01
+ * @Time Create by 2015/4/9 14:04
  */
-public interface ResponseWrapper {
+public final class ReflectUtils {
 
-    public static final String FIELD_NAME_PAGE_NUM          = "page_num";
-
-    public static final String FIELD_NAME_TOTAL_PAGE        = "total_page";
-
-    public static final String FIELD_NAME_TOTAL_COUNT       = "total_count";
-
-    public static final String FIELD_NAME_PAGE_SIZE         = "page_size";
+    /**
+     *
+     * @param obj
+     * @param fieldName
+     * @param <T>
+     * @return
+     */
+    public static <T> T getFieldValue(Object obj,String fieldName){
+       if(obj == null || TextUtils.isEmpty(fieldName)){
+           return null;
+       }
+        try {
+            Field field = obj.getClass().getDeclaredField(fieldName);
+            field.setAccessible(true);
+            return (T) field.get(obj);
+        } catch (Exception e)  {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
