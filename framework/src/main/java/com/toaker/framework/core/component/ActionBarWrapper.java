@@ -129,6 +129,10 @@ public final class ActionBarWrapper {
         mCenterView.setVisibility(View.VISIBLE);
     }
 
+    public TextView getCenterTitleView(){
+        return this.mCenterTitleView;
+    }
+
     public void setCenterTextSize(float size) {
         mCenterTitleView.setTextSize(size);
     }

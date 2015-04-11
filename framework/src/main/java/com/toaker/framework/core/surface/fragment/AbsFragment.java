@@ -11,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.toaker.framework.core.surface.FragmentParameter;
 import com.toaker.framework.core.surface.activity.ReusingActivity;
@@ -188,5 +189,42 @@ public abstract class AbsFragment extends Fragment {
         }else {
             startActivity(intent);
         }
+    }
+
+    public void setCenterTitle(CharSequence title){
+        if(getReusingActivity() != null && getReusingActivity().getActionBarWrapper() != null){
+            getReusingActivity().getActionBarWrapper().setCenterTitle(title);
+        }
+    }
+
+    public void setCenterTitle(int resId){
+        if(getReusingActivity() != null && getReusingActivity().getActionBarWrapper() != null){
+            getReusingActivity().getActionBarWrapper().setCenterTitle(resId);
+        }
+    }
+
+    public void setCenterTitleColor(int color){
+        if(getReusingActivity() != null && getReusingActivity().getActionBarWrapper() != null){
+            getReusingActivity().getActionBarWrapper().getCenterTitleView().setTextColor(color);
+        }
+    }
+
+    public void setCenterTitleSize(float size){
+        if(getReusingActivity() != null && getReusingActivity().getActionBarWrapper() != null){
+            getReusingActivity().getActionBarWrapper().getCenterTitleView().setTextSize(size);
+        }
+    }
+
+    public void setCenterView(View centerView){
+        if(getReusingActivity() != null && getReusingActivity().getActionBarWrapper() != null){
+            getReusingActivity().getActionBarWrapper().setCenterView(centerView);
+        }
+    }
+
+    public TextView getCenterTitleView(){
+        if(getReusingActivity() != null && getReusingActivity().getActionBarWrapper() != null){
+            return getReusingActivity().getActionBarWrapper().getCenterTitleView();
+        }
+        return null;
     }
 }

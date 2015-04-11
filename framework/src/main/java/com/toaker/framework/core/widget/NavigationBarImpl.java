@@ -154,6 +154,8 @@ public class NavigationBarImpl extends FrameLayout implements NavigationBar, Vie
     @Override
     public void addNavigation(Navigation navigation) {
         if(navigation != null && navigation.getView() != null && navigation.getView().getParent() == null){
+            params.width = (int) (mNavigationHeight * 0.9f);
+            params.height = (int) (mNavigationHeight * 0.9f);
             mViewGroup.addView(navigation.getView(),params);
             mNavigates.put(mViewGroup.indexOfChild(navigation.getView()),navigation);
             navigation.getView().setOnClickListener(this);
@@ -204,6 +206,8 @@ public class NavigationBarImpl extends FrameLayout implements NavigationBar, Vie
 
         private LayoutParams   mSpacerParams = new LayoutParams(LayoutParams.MATCH_PARENT,0);
 
+        private LayoutParams   mIconParams = new LayoutParams(LayoutParams.MATCH_PARENT,0);
+
         private LayoutParams   mTextParams = new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
 
         private boolean   mCheckStatus = false;
@@ -223,7 +227,8 @@ public class NavigationBarImpl extends FrameLayout implements NavigationBar, Vie
             mTextView.setGravity(Gravity.CENTER);
             mIconView = new ImageView(getContext());
             mSpacerView = new View(getContext());
-            super.addView(mIconView);
+            mIconParams.weight  = 1;
+            super.addView(mIconView,mIconParams);
             super.addView(mSpacerView,mSpacerParams);
             mTextParams.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
             super.addView(mTextView,mTextParams);
