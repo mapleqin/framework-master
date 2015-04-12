@@ -17,9 +17,11 @@ package com.toaker.framework.core.surface.activity;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.toaker.framework.core.component.ActionBarWrapper;
+import com.toaker.framework.core.surface.FragmentParameter;
 
 /**
  * Decorator for framework-master
@@ -47,5 +49,17 @@ public class BaseActionBarActivity extends Activity {
 
     public ActionBarWrapper getActionBarWrapper() {
         return mActionBarWrapper;
+    }
+
+    public void jumpFragment(FragmentParameter parameter){
+        if(parameter == null || parameter.getFragmentClass() == null){
+            throw new IllegalArgumentException("Want to jump the fragments of information cannot be NULL");
+        }
+        Intent intent = ReusingActivityHelper.builder(this).setFragmentParameter(parameter).build();
+        if(parameter.getRequestCode() != -1){
+            startActivityForResult(intent,parameter.getRequestCode());
+        }else {
+            startActivity(intent);
+        }
     }
 }

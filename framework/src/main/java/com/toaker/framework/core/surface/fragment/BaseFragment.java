@@ -14,11 +14,11 @@ import com.toaker.framework.core.view.NoTouchLayout;
 
 public abstract class BaseFragment extends AbsFragment implements View.OnClickListener{
 
-    FrameLayout mContainerView;
+    protected FrameLayout mContainerView;
 
-    View        mEmptyLayout;
+    protected View        mEmptyLayout;
 
-    View        mLoadingLayout;
+    protected View        mLoadingLayout;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -30,14 +30,14 @@ public abstract class BaseFragment extends AbsFragment implements View.OnClickLi
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if(mContainerView == null){
             mContainerView = new FrameLayout(getActivity());
-            mEmptyLayout = attachEmptyLayout(inflater,mContainerView);
-            mLoadingLayout =  attachLoadingLayout(inflater,mContainerView);
         }
-        View view = super.onCreateView(inflater, container, savedInstanceState);
-        if(container.indexOfChild(mContainerView) == -1){
+        super.onCreateView(inflater, mContainerView, savedInstanceState);
+        if(container != null && container.indexOfChild(mContainerView) == -1){
             container.addView(mContainerView,ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         }
-        return view;
+        mEmptyLayout = attachEmptyLayout(inflater,mContainerView);
+        mLoadingLayout =  attachLoadingLayout(inflater,mContainerView);
+        return mContainerView;
     }
 
     /**
@@ -105,5 +105,10 @@ public abstract class BaseFragment extends AbsFragment implements View.OnClickLi
                 // Noting
             }
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

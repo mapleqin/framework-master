@@ -117,7 +117,7 @@ public class Framework {
         if(context == null){
             throw new IllegalArgumentException("Initialization of the Context cannot be NULL");
         }
-        if(instance != null){
+        if(instance == null){
             instance = new Framework(context);
         }
         ResourceUtils.init(context);

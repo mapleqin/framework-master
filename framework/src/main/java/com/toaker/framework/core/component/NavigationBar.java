@@ -17,6 +17,8 @@ package com.toaker.framework.core.component;
 
 import android.graphics.drawable.Drawable;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 /**
  * Decorator for framework-master
@@ -66,6 +68,26 @@ public interface NavigationBar {
      * @Description:
      * @Time Create by 2015/4/6 2:01
      */
+    public void setPadding(int spacer);
+
+    /**
+     * Decorator for framework-master
+     *
+     * @author Toaker [Toaker](ToakerQin@gmail.com)
+     *         [Toaker](http://www.toaker.com)
+     * @Description:
+     * @Time Create by 2015/4/6 2:01
+     */
+    public void setSpacer(int spacer);
+
+    /**
+     * Decorator for framework-master
+     *
+     * @author Toaker [Toaker](ToakerQin@gmail.com)
+     *         [Toaker](http://www.toaker.com)
+     * @Description:
+     * @Time Create by 2015/4/6 2:01
+     */
     public void setNavigationChangeListener(NavigationChangeListener listener);
 
     /**
@@ -97,6 +119,16 @@ public interface NavigationBar {
      * @Time Create by 2015/4/6 2:01
      */
     public void setCurrentItem(int position);
+
+    /**
+     * Decorator for framework-master
+     *
+     * @author Toaker [Toaker](ToakerQin@gmail.com)
+     *         [Toaker](http://www.toaker.com)
+     * @Description:
+     * @Time Create by 2015/4/6 2:01
+     */
+    public void setTextSize(int size);
 
     /**
      * Decorator for framework-master
@@ -157,6 +189,26 @@ public interface NavigationBar {
          * @Time Create by 2015/4/6 2:01
          */
         public View getView();
+
+        /**
+         * Decorator for framework-master
+         *
+         * @author Toaker [Toaker](ToakerQin@gmail.com)
+         *         [Toaker](http://www.toaker.com)
+         * @Description:
+         * @Time Create by 2015/4/6 2:01
+         */
+        public TextView getTextView();
+
+        /**
+         * Decorator for framework-master
+         *
+         * @author Toaker [Toaker](ToakerQin@gmail.com)
+         *         [Toaker](http://www.toaker.com)
+         * @Description:
+         * @Time Create by 2015/4/6 2:01
+         */
+        public ImageView getIconView();
 
         /**
          * Decorator for framework-master

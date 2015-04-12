@@ -117,6 +117,24 @@ public class NavigationBarImpl extends FrameLayout implements NavigationBar, Vie
         super.setBackground(background);
     }
 
+    @Override
+    public void setPadding(int spacer) {
+        for(Map.Entry<Integer,Navigation> entry:mNavigates.entrySet()){
+            if(entry.getValue() != null){
+                entry.getValue().setPadding(spacer);
+            }
+        }
+    }
+
+    @Override
+    public void setSpacer(int spacer) {
+        for(Map.Entry<Integer,Navigation> entry:mNavigates.entrySet()){
+            if(entry.getValue() != null){
+                entry.getValue().setSpacer(spacer);
+            }
+        }
+    }
+
 
     @Override
     public int getCurrentPosition() {
@@ -127,6 +145,15 @@ public class NavigationBarImpl extends FrameLayout implements NavigationBar, Vie
     public void setCurrentItem(int position) {
         this.mCurPosition = position;
         notifyDataSetChanged();
+    }
+
+    @Override
+    public void setTextSize(int size) {
+        for(Map.Entry<Integer,Navigation> entry:mNavigates.entrySet()){
+            if(entry.getValue() != null){
+                entry.getValue().getTextView().setTextSize(size);
+            }
+        }
     }
 
     public void notifyDataSetChanged(){
@@ -283,6 +310,16 @@ public class NavigationBarImpl extends FrameLayout implements NavigationBar, Vie
         @Override
         public View getView() {
             return this;
+        }
+
+        @Override
+        public TextView getTextView() {
+            return mTextView;
+        }
+
+        @Override
+        public ImageView getIconView() {
+            return mIconView;
         }
 
         @Override
