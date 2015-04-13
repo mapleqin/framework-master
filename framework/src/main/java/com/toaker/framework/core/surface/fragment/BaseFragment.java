@@ -14,8 +14,6 @@ import com.toaker.framework.core.view.NoTouchLayout;
 
 public abstract class BaseFragment extends AbsFragment implements View.OnClickListener{
 
-    protected FrameLayout mContainerView;
-
     protected View        mEmptyLayout;
 
     protected View        mLoadingLayout;
@@ -28,16 +26,15 @@ public abstract class BaseFragment extends AbsFragment implements View.OnClickLi
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if(mContainerView == null){
-            mContainerView = new FrameLayout(getActivity());
-        }
-        super.onCreateView(inflater, mContainerView, savedInstanceState);
-        if(container != null && container.indexOfChild(mContainerView) == -1){
-            container.addView(mContainerView,ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        }
-        mEmptyLayout = attachEmptyLayout(inflater,mContainerView);
-        mLoadingLayout =  attachLoadingLayout(inflater,mContainerView);
-        return mContainerView;
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    protected View getCustomView(LayoutInflater inflater, FrameLayout containerView, Bundle savedInstanceState, boolean isRoot) {
+        super.getCustomView(inflater, containerView, savedInstanceState,isRoot);
+        mEmptyLayout = attachEmptyLayout(inflater,containerView);
+        mLoadingLayout =  attachLoadingLayout(inflater,containerView);
+        return containerView;
     }
 
     /**

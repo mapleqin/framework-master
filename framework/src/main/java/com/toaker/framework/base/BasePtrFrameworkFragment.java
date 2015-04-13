@@ -18,7 +18,7 @@ package com.toaker.framework.base;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.android.volley.ListenerWrapper;
@@ -57,10 +57,15 @@ public abstract class BasePtrFrameworkFragment<T extends ResponseWrapper> extend
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    protected View getCustomView(LayoutInflater inflater, FrameLayout containerView, Bundle savedInstanceState, boolean isRoot) {
         mPtrLayout = new PtrClassicFrameLayout(getActivity());
-        mPtrLayout.addView(super.onCreateView(inflater, container, savedInstanceState));
-        return mPtrLayout;
+        for(int i=0;i<containerView.getChildCount();i++){
+            View view = containerView.getChildAt(i);
+            containerView.removeView(view);
+            mPtrLayout.addView(view);
+        }
+        containerView.addView(mPtrLayout);
+        return super.getCustomView(inflater, containerView, savedInstanceState,isRoot);
     }
 
     @Override

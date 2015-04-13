@@ -39,7 +39,7 @@ public class ReusingActivityHelper {
         if (fragment == null) {
             FragmentTransaction ft = fm.beginTransaction();
             fragment = (AbsFragment) Fragment.instantiate(mActivity, parameter.getFragmentClass().getName(), parameter.getParams());
-            ft.add(fragment, parameter.getTag());
+            ft.add(android.R.id.content,fragment, parameter.getTag());
             ft.commit();
         } else if (fragment.isDetached()) {
             FragmentTransaction ft = fm.beginTransaction();

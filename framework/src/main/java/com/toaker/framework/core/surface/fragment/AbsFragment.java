@@ -11,8 +11,10 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.toaker.framework.R;
 import com.toaker.framework.core.surface.FragmentParameter;
 import com.toaker.framework.core.surface.activity.ReusingActivity;
 import com.toaker.framework.core.surface.activity.ReusingActivityHelper;
@@ -40,8 +42,14 @@ public abstract class AbsFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		return inflater.inflate(getResourceLayoutId(),container,false);
+        FrameLayout containerView = (FrameLayout) inflater.inflate(R.layout.container_view,container,false);
+        getCustomView(inflater,containerView, savedInstanceState,container != null);
+        return containerView;
 	}
+
+    protected View getCustomView(LayoutInflater inflater, FrameLayout containerView, Bundle savedInstanceState,boolean isRoot){
+        return inflater.inflate(getResourceLayoutId(),containerView,isRoot);
+    }
 
     public abstract int getResourceLayoutId();
 

@@ -1,19 +1,21 @@
 package com.toaker.framework.demo;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.toaker.framework.app.Framework;
-import com.toaker.framework.core.surface.activity.BaseActionBarActivity;
 import com.toaker.framework.core.component.NavigationBar;
+import com.toaker.framework.core.surface.FragmentParameter;
+import com.toaker.framework.core.surface.activity.BaseActionBarFragmentActivity;
 import com.toaker.framework.core.widget.NavigationBarImpl;
 
 
-public class MainActivity extends BaseActionBarActivity implements NavigationBar.NavigationChangeListener {
+public class MainActivity extends BaseActionBarFragmentActivity implements NavigationBar.NavigationChangeListener {
 
     private static String [] TITLES = new String[]{"广场","消息","好友","设置"};
 
@@ -61,6 +63,16 @@ public class MainActivity extends BaseActionBarActivity implements NavigationBar
         setting.setSpacer(10);
         mNavigationBar.addNavigation(setting);
         mNavigationBar.setCurrentItem(0);
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(VitalHomeFragment.class.getSimpleName());
+        if(fragment == null){
+            fragment = Fragment.instantiate(this,VitalHomeFragment.class.getName());
+            fragmentTransaction.add(R.id.replace, fragment, VitalHomeFragment.class.getSimpleName());
+        }else {
+            fragmentTransaction.attach(fragment);
+        }
+        fragmentTransaction.commit();
     }
 
 
@@ -74,7 +86,7 @@ public class MainActivity extends BaseActionBarActivity implements NavigationBar
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
         if(item.getItemId() == R.id.volley){
-            startActivity(new Intent(this, VolleyActivity.class));
+            jumpFragment(new FragmentParameter(VitalHomeFragment.class));
             return true;
         }
         return super.onMenuItemSelected(featureId, item);
