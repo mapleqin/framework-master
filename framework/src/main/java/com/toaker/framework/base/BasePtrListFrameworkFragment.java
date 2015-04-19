@@ -135,8 +135,10 @@ public abstract class BasePtrListFrameworkFragment<T extends ResponseWrapper> ex
 
     protected void startNetWork(int method,RequestParameter params){
         this.mRequestParameter = params;
-        this.mRequestParameter.setMethod(method);
-        mRequestQueue.add(new JsonDataRequest<T>(method,getRequestUrl(),params,mListenerWrapper,!isLoadMore));
+        if(mRequestParameter != null){
+            this.mRequestParameter.setMethod(method);
+        }
+        mRequestQueue.add(new JsonDataRequest<T>(getTypeClass(),method,getRequestUrl(),params,mListenerWrapper,!isLoadMore));
     }
 
     public abstract void onSuccess(T response);
@@ -171,12 +173,11 @@ public abstract class BasePtrListFrameworkFragment<T extends ResponseWrapper> ex
         this.isLoadMore = true;
         int page = page_num + 1;
         if(page <= total_page){
-            if(mRequestParameter != null){
-               mRequestParameter.getStringParams().put(PARAMS_KEY_PAGE_NUM,String.valueOf(page));
-               startNetWork(mRequestParameter.getMethod(),mRequestParameter);
-            }else {
-                noMoreData();
+            if(mRequestParameter == null) {
+                mRequestParameter = new RequestParameter();
             }
+           mRequestParameter.getStringParams().put(PARAMS_KEY_PAGE_NUM,String.valueOf(page));
+           startNetWork(mRequestParameter.getMethod(),mRequestParameter);
         }else {
             noMoreData();
         }
@@ -187,4 +188,6 @@ public abstract class BasePtrListFrameworkFragment<T extends ResponseWrapper> ex
             mListView.completeLoadMore();
         }
     }
+
+    protected abstract Class<T> getTypeClass();
 }

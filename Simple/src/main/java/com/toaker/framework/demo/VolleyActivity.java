@@ -1,6 +1,7 @@
 package com.toaker.framework.demo;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -16,12 +17,10 @@ import com.android.volley.toolbox.VolleyErrorWrapper;
 import com.google.gson.Gson;
 import com.toaker.framework.core.surface.activity.BaseActionBarActivity;
 
-import java.util.ArrayList;
-
 
 public class VolleyActivity extends BaseActionBarActivity {
 
-    private ArrayList<String>  mData;
+    private HomeData  mData;
 
     RequestQueue mRequestQueue;
 
@@ -46,10 +45,10 @@ public class VolleyActivity extends BaseActionBarActivity {
     }
 
 
-    JsonDataRequest<ArrayList<String>> mJsonData = new JsonDataRequest<ArrayList<String>>(Request.Method.GET,
-            "http://www.svmeng.com/volley_test.php?page=1",null,new ListenerWrapper<ArrayList<String>>() {
+    JsonDataRequest<HomeData> mJsonData = new JsonDataRequest<HomeData>(HomeData.class,Request.Method.GET,
+            "http://www.xiaodao360.com/dao.php/App/Activity/activity_list",new ListenerWrapper<HomeData>() {
         @Override
-        public void onSuccess(ArrayList<String> response) {
+        public void onSuccess(HomeData response) {
             mData = response;
             if(mData != null){
                 mListAdapter.notifyDataSetChanged();
@@ -58,7 +57,7 @@ public class VolleyActivity extends BaseActionBarActivity {
 
         @Override
         public void onError(VolleyErrorWrapper error) {
-
+            Log.e("DDDD",error.errMessage);
         }
     });
 
@@ -67,10 +66,10 @@ public class VolleyActivity extends BaseActionBarActivity {
 
         @Override
         public int getCount() {
-            if(mData == null){
+            if(mData == null || mData.data == null){
                 return 0;
             }
-            return mData.size();
+            return mData.data.size();
         }
 
         @Override
@@ -93,7 +92,7 @@ public class VolleyActivity extends BaseActionBarActivity {
             }else {
                 textView = (TextView) convertView;
             }
-            textView.setText(mData.get(position));
+            textView.setText(mData.data.get(position).toString());
             return convertView;
         }
     }

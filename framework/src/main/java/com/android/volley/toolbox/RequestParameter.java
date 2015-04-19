@@ -20,7 +20,7 @@ import android.text.TextUtils;
 import com.android.volley.Request;
 
 import java.io.File;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -40,8 +40,8 @@ public final class RequestParameter {
     private Map<String,File>   mFileParams;
 
     public RequestParameter(){
-        mStringParams = Collections.emptyMap();
-        mFileParams = Collections.emptyMap();
+        mStringParams = new HashMap<String, String>();
+        mFileParams = new HashMap<String, File>();
     }
 
     public RequestParameter add(String key, String value) {

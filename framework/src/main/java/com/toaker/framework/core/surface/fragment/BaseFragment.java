@@ -18,6 +18,8 @@ public abstract class BaseFragment extends AbsFragment implements View.OnClickLi
 
     protected View        mLoadingLayout;
 
+    protected View        mErrorLayout;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -32,6 +34,7 @@ public abstract class BaseFragment extends AbsFragment implements View.OnClickLi
     @Override
     protected View getCustomView(LayoutInflater inflater, FrameLayout containerView, Bundle savedInstanceState, boolean isRoot) {
         super.getCustomView(inflater, containerView, savedInstanceState,isRoot);
+        mErrorLayout = attachErrorLayout(inflater,containerView);
         mEmptyLayout = attachEmptyLayout(inflater,containerView);
         mLoadingLayout =  attachLoadingLayout(inflater,containerView);
         return containerView;
@@ -44,6 +47,16 @@ public abstract class BaseFragment extends AbsFragment implements View.OnClickLi
      * @return
      */
     protected View attachEmptyLayout(LayoutInflater inflater,ViewGroup container){
+        return null;
+    }
+
+    /**
+     * see Attach an error status page
+     * @param inflater
+     * @param container
+     * @return
+     */
+    protected View attachErrorLayout(LayoutInflater inflater,ViewGroup container){
         return null;
     }
 
@@ -82,6 +95,22 @@ public abstract class BaseFragment extends AbsFragment implements View.OnClickLi
                 mEmptyLayout.setVisibility(View.VISIBLE);
             }else if(!display && mEmptyLayout.getVisibility() != View.GONE){
                 mEmptyLayout.setVisibility(View.GONE);
+            }else {
+                // Noting
+            }
+        }
+    }
+
+    /**
+     * Switch the error status page displays a status
+     * @param display
+     */
+    public void displayErrorLayout(boolean display){
+        if(mErrorLayout != null){
+            if(display && mErrorLayout.getVisibility() != View.VISIBLE){
+                mErrorLayout.setVisibility(View.VISIBLE);
+            }else if(!display && mErrorLayout.getVisibility() != View.GONE){
+                mErrorLayout.setVisibility(View.GONE);
             }else {
                 // Noting
             }

@@ -6,13 +6,13 @@ import android.os.Handler;
 import android.view.View;
 
 import com.android.volley.toolbox.ResponseWrapper;
-import com.toaker.framework.core.surface.fragment.BaseFragment;
+import com.toaker.framework.base.BasePtrListFrameworkFragment;
 
 
 /**
  * A simple {@link android.app.Fragment} subclass.
  */
-public class VitalHomeFragment extends BaseFragment {
+public class VitalHomeFragment extends BasePtrListFrameworkFragment {
 
 
     @Override
@@ -38,6 +38,11 @@ public class VitalHomeFragment extends BaseFragment {
 
     protected String getRequestUrl() {
         return null;
+    }
+
+    @Override
+    protected Class getTypeClass() {
+        return String.class;
     }
 
     @Override

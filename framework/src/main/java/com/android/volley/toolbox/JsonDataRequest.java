@@ -27,11 +27,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyLog;
 import com.android.volley.entry.MultiPartEntity;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Type;
 import java.net.URLEncoder;
 import java.util.Map;
 
@@ -43,7 +41,7 @@ import java.util.Map;
  * @Description:
  * @Time Create by 2015/4/8 14:24
  */
-public class JsonDataRequest<T> extends Request<T> {
+public class JsonDataRequest<T extends ResponseWrapper> extends Request<T> {
 
     private RequestParameter params;
 
@@ -51,8 +49,11 @@ public class JsonDataRequest<T> extends Request<T> {
 
     private Gson    mJsonUtils;
 
-    public JsonDataRequest(int method, String url, RequestParameter params,ListenerWrapper<T> listener,boolean cache,boolean needRefresh) {
+    protected Class<T>  mTypeClass;
+
+    public JsonDataRequest(Class<T> tClass,int method, String url, RequestParameter params,ListenerWrapper<T> listener,boolean cache,boolean needRefresh) {
         super(method, url, listener);
+        this.mTypeClass = tClass;
         this.params = params;
         this.mListener = listener;
         mJsonUtils = new Gson();
@@ -61,32 +62,29 @@ public class JsonDataRequest<T> extends Request<T> {
         setShouldCache(cache);
     }
 
-    public JsonDataRequest(int method, String url, RequestParameter params,ListenerWrapper<T> listener,boolean cache) {
-        this(method,url,params,listener,cache,true);
+    public JsonDataRequest(Class<T> tClass,int method, String url, RequestParameter params,ListenerWrapper<T> listener,boolean cache) {
+        this(tClass,method, url, params, listener, cache, true);
     }
 
-    public JsonDataRequest(int method, String url, RequestParameter params,ListenerWrapper<T> listener) {
-        this(method,url,params,listener,true);
+    public JsonDataRequest(Class<T> tClass,int method, String url, RequestParameter params,ListenerWrapper<T> listener) {
+        this(tClass,method,url,params,listener,true);
     }
 
-    public JsonDataRequest(int method, String url,ListenerWrapper<T> listener) {
-        this(method,url,null,listener);
+    public JsonDataRequest(Class<T> tClass,int method, String url,ListenerWrapper<T> listener) {
+        this(tClass,method,url,null,listener);
     }
 
     @Override
     protected Response<T> parseNetworkResponse(NetworkResponse networkResponse) {
         try {
             VolleyLog.v("++++++:" + new String(networkResponse.data, HttpHeaderParser.parseCharset(networkResponse.headers)));
-            Type type = new TypeToken<T>(){}.getType();
-            T instanceResponse = mJsonUtils.fromJson(new String(networkResponse.data, HttpHeaderParser.parseCharset(networkResponse.headers)), type);
+            String result = new String(networkResponse.data, HttpHeaderParser.parseCharset(networkResponse.headers));
+            T instanceResponse = mJsonUtils.fromJson(result, mTypeClass);
             return Response.success(instanceResponse, HttpHeaderParserWrapper.parseCacheHeaders(networkResponse));
         } catch (Exception e) {
-            Response.error(new ParseError(e));
+            return Response.error(new ParseError(e));
         }
-        return null;
     }
-
-
 
     @Override
     protected void deliverResponse(T response) {

@@ -192,7 +192,11 @@ public class ResourceUtils {
     }
 
     public String getString(int resId) {
-        return mContext.getResources().getString(resId);
+        try {
+            return mContext.getResources().getString(resId);
+        }catch (Exception e){
+            return null;
+        }
     }
 
     public int[] getIntArray(int resId) {

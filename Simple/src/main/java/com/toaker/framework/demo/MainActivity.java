@@ -1,5 +1,6 @@
 package com.toaker.framework.demo;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,7 +11,6 @@ import android.view.View;
 
 import com.toaker.framework.app.Framework;
 import com.toaker.framework.core.component.NavigationBar;
-import com.toaker.framework.core.surface.FragmentParameter;
 import com.toaker.framework.core.surface.activity.BaseActionBarFragmentActivity;
 import com.toaker.framework.core.widget.NavigationBarImpl;
 
@@ -86,7 +86,8 @@ public class MainActivity extends BaseActionBarFragmentActivity implements Navig
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
         if(item.getItemId() == R.id.volley){
-            jumpFragment(new FragmentParameter(VitalHomeFragment.class));
+            //jumpFragment(new FragmentParameter(VitalHomeFragment.class));
+             startActivity(new Intent(this,VolleyActivity.class));
             return true;
         }
         return super.onMenuItemSelected(featureId, item);

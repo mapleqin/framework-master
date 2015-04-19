@@ -76,7 +76,7 @@ public abstract class BaseFrameworkFragment<T extends ResponseWrapper> extends B
 
     protected void startNetWork(int method,RequestParameter params){
         this.mRequestParameter = params;
-        mRequestQueue.add(new JsonDataRequest<T>(method,getRequestUrl(),params,mListenerWrapper));
+        mRequestQueue.add(new JsonDataRequest<T>(getTypeClass(),method,getRequestUrl(),params,mListenerWrapper));
     }
 
     public abstract void onSuccess(T response);
@@ -90,4 +90,6 @@ public abstract class BaseFrameworkFragment<T extends ResponseWrapper> extends B
     }
 
     protected abstract String getRequestUrl();
+
+    protected abstract Class<T> getTypeClass();
 }

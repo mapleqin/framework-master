@@ -15,9 +15,14 @@
 
 package com.toaker.commons.db.utils;
 
+import android.content.Context;
 import android.database.Cursor;
 
 import java.io.Closeable;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Author: wyouflf
@@ -44,6 +49,32 @@ public class IOUtils {
                 cursor.close();
             } catch (Throwable e) {
             }
+        }
+    }
+
+    /**
+     * assets资源目录下的address.db拷贝到data/data/
+     * .db
+     */
+    public static String copyDatabase(Context context, String dbName) {
+        try {
+            File file = new File(context.getFilesDir(), dbName);
+            if (file.exists() && file.length() > 0) {
+
+            } else {
+                InputStream is = context.getAssets().open(dbName);
+                FileOutputStream fos = new FileOutputStream(file);
+                byte[] buffer = new byte[1024];
+                int len = 0;
+                while ((len = is.read(buffer)) != -1) {
+                    fos.write(buffer, 0, len);
+                }
+                fos.close();
+                is.close();
+            }
+            return file.getAbsolutePath();
+        } catch (IOException e) {
+            return null;
         }
     }
 }
