@@ -15,5 +15,13 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        mavenCentral()
+        mavenLocal()
+        maven {
+            url 'http://oss.svmeng.com:8081/nexus/content/repositories/com.toaker.maven'
+        }
+        maven {
+            url 'http://oss.svmeng.com:8081/nexus/content/repositories/releases'
+        }
     }
 }

@@ -97,7 +97,7 @@ public abstract class BaseListFrameworkFragment<T extends ResponseWrapper> exten
 
         @Override
         public void onError(VolleyErrorWrapper error) {
-            onError(error);
+            BaseListFrameworkFragment.this.onError(error);
         }
     };
 

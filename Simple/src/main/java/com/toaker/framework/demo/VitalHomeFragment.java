@@ -3,16 +3,18 @@ package com.toaker.framework.demo;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 
-import com.android.volley.toolbox.ResponseWrapper;
-import com.toaker.framework.base.BasePtrListFrameworkFragment;
+import com.toaker.framework.base.BasePtrFrameworkFragment;
+
+import in.srain.cube.views.ptr.PtrFrameLayout;
 
 
 /**
  * A simple {@link android.app.Fragment} subclass.
  */
-public class VitalHomeFragment extends BasePtrListFrameworkFragment {
+public class VitalHomeFragment extends BasePtrFrameworkFragment<HomeData> {
 
 
     @Override
@@ -28,25 +30,38 @@ public class VitalHomeFragment extends BasePtrListFrameworkFragment {
     }
 
 
-    public void onSuccess(ResponseWrapper o) {
+    public void onSuccess(HomeData o) {
 
     }
 
-    public void onLoadMoreSuccess(ResponseWrapper o) {
-
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        startNetWork();
     }
 
     protected String getRequestUrl() {
-        return null;
+        return "http://www.xiaodao360.com/dao.php/App/Activity/activity_list";
     }
 
     @Override
     protected Class getTypeClass() {
-        return String.class;
+        return HomeData.class;
     }
 
     @Override
     public int getResourceLayoutId() {
         return R.layout.fragment_home;
+    }
+
+    @Override
+    public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+        Log.e("PtrFrameLayout","checkCanDoRefresh:" + mPtrLayout);
+        return true;
+    }
+
+    @Override
+    public void onRefreshBegin(PtrFrameLayout frame) {
+
     }
 }

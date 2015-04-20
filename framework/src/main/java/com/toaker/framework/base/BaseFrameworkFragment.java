@@ -57,12 +57,12 @@ public abstract class BaseFrameworkFragment<T extends ResponseWrapper> extends B
     ListenerWrapper<T> mListenerWrapper = new ListenerWrapper<T>() {
         @Override
         public void onSuccess(T response) {
-            onSuccess(response);
+            BaseFrameworkFragment.this.onSuccess(response);
         }
 
         @Override
         public void onError(VolleyErrorWrapper error) {
-            onError(error);
+            BaseFrameworkFragment.this.onError(error);
         }
     };
 

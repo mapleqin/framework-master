@@ -15,6 +15,8 @@ import com.android.volley.toolbox.JsonDataRequest;
 import com.android.volley.toolbox.Volley;
 import com.android.volley.toolbox.VolleyErrorWrapper;
 import com.google.gson.Gson;
+import com.toaker.commons.db.NativeDbManager;
+import com.toaker.commons.db.exception.DbException;
 import com.toaker.framework.core.surface.activity.BaseActionBarActivity;
 
 
@@ -30,9 +32,13 @@ public class VolleyActivity extends BaseActionBarActivity {
 
     private ListView     mListView;
 
+    private NativeDbManager nativeDbManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        NativeDbManager.init(this, "CitySlogan.db");
+        nativeDbManager = NativeDbManager.getInstance("CitySlogan.db");
         setContentView(R.layout.activity_volley);
         mRequestQueue = Volley.newRequestQueue(this);
         mListView = (ListView) findViewById(R.id.list);
@@ -42,6 +48,12 @@ public class VolleyActivity extends BaseActionBarActivity {
         mJsonData.setShouldCache(true);
         mJsonData.setRefreshNeeded(false);
         mRequestQueue.add(mJsonData);
+
+        try {
+            nativeDbManager.findAll(CitySlogan.class);
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
     }
 
 

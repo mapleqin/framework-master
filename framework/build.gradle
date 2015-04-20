@@ -8,7 +8,7 @@ android {
         minSdkVersion 9
         targetSdkVersion 16
         versionCode 1
-        versionName "1.2.2.8"
+        versionName "1.2.3.2"
     }
 
 
@@ -90,4 +90,5 @@ task copyLibs << {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:19.+'
+    compile 'com.toaker.common:tlog:1.1.0@aar'
 }

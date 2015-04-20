@@ -89,11 +89,14 @@ public abstract class BasePtrListFrameworkFragment<T extends ResponseWrapper> ex
     @Override
     protected View getCustomView(LayoutInflater inflater, FrameLayout containerView, Bundle savedInstanceState, boolean isRoot) {
         mPtrLayout = new PtrClassicFrameLayout(getActivity());
+        FrameLayout frameLayout = new FrameLayout(getActivity());
         for(int i=0;i<containerView.getChildCount();i++){
             View view = containerView.getChildAt(i);
             containerView.removeView(view);
-            mPtrLayout.addView(view);
+            frameLayout.addView(view);
         }
+        mPtrLayout.addView(frameLayout);
+        mPtrLayout.initializePtr();
         containerView.addView(mPtrLayout);
         return super.getCustomView(inflater, containerView, savedInstanceState,isRoot);
     }
@@ -121,7 +124,7 @@ public abstract class BasePtrListFrameworkFragment<T extends ResponseWrapper> ex
 
         @Override
         public void onError(VolleyErrorWrapper error) {
-            onError(error);
+            BasePtrListFrameworkFragment.this.onError(error);
         }
     };
 

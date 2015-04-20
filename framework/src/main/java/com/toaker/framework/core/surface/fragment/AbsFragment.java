@@ -165,7 +165,7 @@ public abstract class AbsFragment extends Fragment {
 	 * @param resId
 	 * @return
 	 */
-	public<T> T findViewById(int resId) {
+	public<T extends View> T findViewById(int resId) {
 		return (T) this.getView().findViewById(resId);
 	}
 

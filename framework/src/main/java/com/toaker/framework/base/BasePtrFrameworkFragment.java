@@ -59,11 +59,14 @@ public abstract class BasePtrFrameworkFragment<T extends ResponseWrapper> extend
     @Override
     protected View getCustomView(LayoutInflater inflater, FrameLayout containerView, Bundle savedInstanceState, boolean isRoot) {
         mPtrLayout = new PtrClassicFrameLayout(getActivity());
+        FrameLayout frameLayout = new FrameLayout(getActivity());
         for(int i=0;i<containerView.getChildCount();i++){
             View view = containerView.getChildAt(i);
             containerView.removeView(view);
-            mPtrLayout.addView(view);
+            frameLayout.addView(view);
         }
+        mPtrLayout.addView(frameLayout);
+        mPtrLayout.initializePtr();
         containerView.addView(mPtrLayout);
         return super.getCustomView(inflater, containerView, savedInstanceState,isRoot);
     }
@@ -79,12 +82,12 @@ public abstract class BasePtrFrameworkFragment<T extends ResponseWrapper> extend
     ListenerWrapper<T> mListenerWrapper = new ListenerWrapper<T>() {
         @Override
         public void onSuccess(T response) {
-            onSuccess(response);
+            BasePtrFrameworkFragment.this.onSuccess(response);
         }
 
         @Override
         public void onError(VolleyErrorWrapper error) {
-            onError(error);
+            BasePtrFrameworkFragment.this.onError(error);
         }
     };
 
