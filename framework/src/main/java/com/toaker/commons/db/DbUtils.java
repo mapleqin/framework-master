@@ -18,9 +18,15 @@ package com.toaker.commons.db;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 
+import com.toaker.commons.db.callback.DbResponseCallBack;
 import com.toaker.commons.db.exception.DbException;
+import com.toaker.commons.db.internal.ExecutorDelivery;
+import com.toaker.commons.db.internal.Perform;
+import com.toaker.commons.db.internal.PerformQueue;
 import com.toaker.commons.db.sqlite.CursorUtils;
 import com.toaker.commons.db.sqlite.DbModelSelector;
 import com.toaker.commons.db.sqlite.Selector;
@@ -58,12 +64,16 @@ public class DbUtils {
 
     private static DaoConfig defaultConfig;
 
+    private PerformQueue  mPerformQueue;
+
     private DbUtils(DaoConfig config) {
         if (config == null) {
             throw new IllegalArgumentException("daoConfig may not be null");
         }
         this.database = createDatabase(config);
         this.daoConfig = config;
+        mPerformQueue = new PerformQueue(new ExecutorDelivery(new Handler(Looper.getMainLooper())));
+        mPerformQueue.start();
     }
 
     public static void init(Context mContext){
@@ -165,6 +175,17 @@ public class DbUtils {
 
     //*********************************************** operations ********************************************************
 
+    public Perform<Void> saveOrUpdate(final Object entity,DbResponseCallBack<Void> callBack){
+        Perform<Void> perform = new Perform<Void>(new Perform.PerformDelivery<Void>() {
+            @Override
+            public Void execute() throws DbException {
+                saveOrUpdate(entity);
+                return null;
+            }
+        },callBack);
+        return mPerformQueue.add(perform);
+    }
+
     public void saveOrUpdate(Object entity) throws DbException {
         try {
             beginTransaction();
@@ -176,6 +197,17 @@ public class DbUtils {
         } finally {
             endTransaction();
         }
+    }
+
+    public Perform<Void> saveOrUpdateAll(final List<?> entities,DbResponseCallBack<Void> callBack) {
+        Perform<Void> perform = new Perform<Void>(new Perform.PerformDelivery<Void>() {
+            @Override
+            public Void execute() throws DbException {
+                saveOrUpdateAll(entities);
+                return null;
+            }
+        },callBack);
+        return mPerformQueue.add(perform);
     }
 
     public void saveOrUpdateAll(List<?> entities) throws DbException {
@@ -194,6 +226,17 @@ public class DbUtils {
         }
     }
 
+    public Perform<Void> replace(final Object entity,DbResponseCallBack<Void> callBack) {
+        Perform<Void> perform = new Perform<Void>(new Perform.PerformDelivery<Void>() {
+            @Override
+            public Void execute() throws DbException {
+                replace(entity);
+                return null;
+            }
+        },callBack);
+        return mPerformQueue.add(perform);
+    }
+
     public void replace(Object entity) throws DbException {
         try {
             beginTransaction();
@@ -205,6 +248,17 @@ public class DbUtils {
         } finally {
             endTransaction();
         }
+    }
+
+    public Perform<Void> replaceAll(final List<?> entities,DbResponseCallBack<Void> callBack) {
+        Perform<Void> perform = new Perform<Void>(new Perform.PerformDelivery<Void>() {
+            @Override
+            public Void execute() throws DbException {
+                replaceAll(entities);
+                return null;
+            }
+        },callBack);
+        return mPerformQueue.add(perform);
     }
 
     public void replaceAll(List<?> entities) throws DbException {
@@ -223,6 +277,17 @@ public class DbUtils {
         }
     }
 
+    public Perform<Void> save(final Object entity,DbResponseCallBack<Void> callBack) {
+        Perform<Void> perform = new Perform<Void>(new Perform.PerformDelivery<Void>() {
+            @Override
+            public Void execute() throws DbException {
+                save(entity);
+                return null;
+            }
+        },callBack);
+        return mPerformQueue.add(perform);
+    }
+
     public void save(Object entity) throws DbException {
         try {
             beginTransaction();
@@ -234,6 +299,17 @@ public class DbUtils {
         } finally {
             endTransaction();
         }
+    }
+
+    public Perform<Void> saveAll(final List<?> entities,DbResponseCallBack<Void> callBack){
+        Perform<Void> perform = new Perform<Void>(new Perform.PerformDelivery<Void>() {
+            @Override
+            public Void execute() throws DbException {
+                saveAll(entities);
+                return null;
+            }
+        },callBack);
+        return mPerformQueue.add(perform);
     }
 
     public void saveAll(List<?> entities) throws DbException {
@@ -252,6 +328,16 @@ public class DbUtils {
         }
     }
 
+    public Perform<Boolean> saveBindingId(final Object entity,DbResponseCallBack<Boolean> callBack){
+        Perform<Boolean> perform = new Perform<Boolean>(new Perform.PerformDelivery<Boolean>() {
+            @Override
+            public Boolean execute() throws DbException {
+                return saveBindingId(entity);
+            }
+        },callBack);
+        return mPerformQueue.add(perform);
+    }
+
     public boolean saveBindingId(Object entity) throws DbException {
         boolean result = false;
         try {
@@ -265,6 +351,17 @@ public class DbUtils {
             endTransaction();
         }
         return result;
+    }
+
+    public Perform<Void> saveBindingIdAll(final List<?> entities,DbResponseCallBack<Void> callBack){
+        Perform<Void> perform = new Perform<Void>(new Perform.PerformDelivery<Void>() {
+            @Override
+            public Void execute() throws DbException {
+                saveBindingIdAll(entities);
+                return null;
+            }
+        },callBack);
+        return mPerformQueue.add(perform);
     }
 
     public void saveBindingIdAll(List<?> entities) throws DbException {
@@ -285,6 +382,17 @@ public class DbUtils {
         }
     }
 
+    public Perform<Void> deleteById(final Class<?> entityType, final Object idValue,DbResponseCallBack<Void> callBack){
+        Perform<Void> perform = new Perform<Void>(new Perform.PerformDelivery<Void>() {
+            @Override
+            public Void execute() throws DbException {
+                deleteById(entityType,idValue);
+                return null;
+            }
+        },callBack);
+        return mPerformQueue.add(perform);
+    }
+
     public void deleteById(Class<?> entityType, Object idValue) throws DbException {
         if (!tableIsExist(entityType)) return;
         try {
@@ -296,6 +404,17 @@ public class DbUtils {
         } finally {
             endTransaction();
         }
+    }
+
+    public Perform<Void> asynDelete(final Object entity,DbResponseCallBack<Void> callBack) throws DbException {
+        Perform<Void> perform = new Perform<Void>(new Perform.PerformDelivery<Void>() {
+            @Override
+            public Void execute() throws DbException {
+                delete(entity);
+                return null;
+            }
+        },callBack);
+        return mPerformQueue.add(perform);
     }
 
     public void delete(Object entity) throws DbException {
@@ -311,6 +430,17 @@ public class DbUtils {
         }
     }
 
+    public Perform<Void> delete(final Class<?> entityType, final WhereBuilder whereBuilder,DbResponseCallBack<Void> callBack)  {
+        Perform<Void> perform = new Perform<Void>(new Perform.PerformDelivery<Void>() {
+            @Override
+            public Void execute() throws DbException {
+                delete(entityType,whereBuilder);
+                return null;
+            }
+        },callBack);
+        return mPerformQueue.add(perform);
+    }
+
     public void delete(Class<?> entityType, WhereBuilder whereBuilder) throws DbException {
         if (!tableIsExist(entityType)) return;
         try {
@@ -322,6 +452,17 @@ public class DbUtils {
         } finally {
             endTransaction();
         }
+    }
+
+    public Perform<Void> deleteAll(final List<?> entities,DbResponseCallBack<Void> callBack){
+        Perform<Void> perform = new Perform<Void>(new Perform.PerformDelivery<Void>() {
+            @Override
+            public Void execute() throws DbException {
+                deleteAll(entities);
+                return null;
+            }
+        },callBack);
+        return mPerformQueue.add(perform);
     }
 
     public void deleteAll(List<?> entities) throws DbException {
@@ -339,8 +480,30 @@ public class DbUtils {
         }
     }
 
-    public void deleteAll(Class<?> entityType) throws DbException {
+    public Perform<Void> asynDelete(final Class<?> entityType,DbResponseCallBack<Void> callBack){
+        Perform<Void> perform = new Perform<Void>(new Perform.PerformDelivery<Void>() {
+            @Override
+            public Void execute() throws DbException {
+                delete(entityType);
+                return null;
+            }
+        },callBack);
+        return mPerformQueue.add(perform);
+    }
+
+    public void delete(Class<?> entityType) throws DbException {
         delete(entityType, null);
+    }
+
+    public Perform<Void> update(final Object entity,DbResponseCallBack<Void> callBack, final String... updateColumnNames)  {
+        Perform<Void> perform = new Perform<Void>(new Perform.PerformDelivery<Void>() {
+            @Override
+            public Void execute() throws DbException {
+                update(entity,updateColumnNames);
+                return null;
+            }
+        },callBack);
+        return mPerformQueue.add(perform);
     }
 
     public void update(Object entity, String... updateColumnNames) throws DbException {
@@ -356,6 +519,17 @@ public class DbUtils {
         }
     }
 
+    public Perform<Void> update(final Object entity, final WhereBuilder whereBuilder,DbResponseCallBack<Void> callBack, final String... updateColumnNames){
+        Perform<Void> perform = new Perform<Void>(new Perform.PerformDelivery<Void>() {
+            @Override
+            public Void execute() throws DbException {
+                update(entity,whereBuilder,updateColumnNames);
+                return null;
+            }
+        },callBack);
+        return mPerformQueue.add(perform);
+    }
+
     public void update(Object entity, WhereBuilder whereBuilder, String... updateColumnNames) throws DbException {
         if (!tableIsExist(entity.getClass())) return;
         try {
@@ -367,6 +541,17 @@ public class DbUtils {
         } finally {
             endTransaction();
         }
+    }
+
+    public Perform<Void> updateAll(final List<?> entities,DbResponseCallBack<Void> callBack, final String... updateColumnNames){
+        Perform<Void> perform = new Perform<Void>(new Perform.PerformDelivery<Void>() {
+            @Override
+            public Void execute() throws DbException {
+                updateAll(entities,updateColumnNames);
+                return null;
+            }
+        },callBack);
+        return mPerformQueue.add(perform);
     }
 
     public void updateAll(List<?> entities, String... updateColumnNames) throws DbException {
@@ -384,6 +569,17 @@ public class DbUtils {
         }
     }
 
+    public Perform<Void> updateAll(final List<?> entities, final WhereBuilder whereBuilder,DbResponseCallBack<Void> callBack, final String... updateColumnNames)  {
+        Perform<Void> perform = new Perform<Void>(new Perform.PerformDelivery<Void>() {
+            @Override
+            public Void execute() throws DbException {
+                updateAll(entities,whereBuilder,updateColumnNames);
+                return null;
+            }
+        },callBack);
+        return mPerformQueue.add(perform);
+    }
+
     public void updateAll(List<?> entities, WhereBuilder whereBuilder, String... updateColumnNames) throws DbException {
         if (entities == null || entities.size() == 0 || !tableIsExist(entities.get(0).getClass())) return;
         try {
@@ -397,6 +593,16 @@ public class DbUtils {
         } finally {
             endTransaction();
         }
+    }
+
+    public <T> Perform<T> findById(final Class<T> entityType, final Object idValue,DbResponseCallBack<T> callBack){
+        Perform<T> perform = new Perform<T>(new Perform.PerformDelivery<T>() {
+            @Override
+            public T execute() throws DbException {
+                return findById(entityType,idValue);
+            }
+        },callBack);
+        return mPerformQueue.add(perform);
     }
 
     @SuppressWarnings("unchecked")
@@ -432,6 +638,17 @@ public class DbUtils {
     }
 
     @SuppressWarnings("unchecked")
+    public <T> Perform<T> findFirst(final Selector selector,DbResponseCallBack<T> callBack) {
+        Perform<T> perform = new Perform<T>(new Perform.PerformDelivery<T>() {
+            @Override
+            public T execute() throws DbException {
+                return findFirst(selector);
+            }
+        },callBack);
+        return mPerformQueue.add(perform);
+    }
+
+    @SuppressWarnings("unchecked")
     public <T> T findFirst(Selector selector) throws DbException {
         if (!tableIsExist(selector.getEntityType())) return null;
 
@@ -462,6 +679,20 @@ public class DbUtils {
 
     public <T> T findFirst(Class<T> entityType) throws DbException {
         return findFirst(Selector.from(entityType));
+    }
+
+    public <T> Perform<T> findFirst(Class<T> entityType,DbResponseCallBack callBack){
+        return findFirst(Selector.from(entityType),callBack);
+    }
+
+    public <T> Perform<List<T>> findAll(final Selector selector,DbResponseCallBack<List<T>> callBack) {
+        Perform<List<T>> perform = new Perform<List<T>>(new Perform.PerformDelivery<List<T>>() {
+            @Override
+            public List<T> execute() throws DbException {
+                return findAll(selector);
+            }
+        },callBack);
+        return mPerformQueue.add(perform);
     }
 
     @SuppressWarnings("unchecked")
@@ -499,6 +730,20 @@ public class DbUtils {
         return findAll(Selector.from(entityType));
     }
 
+    public <T> Perform<List<T>> findAll(Class<T> entityType,DbResponseCallBack<List<T>> callBack){
+        return findAll(Selector.from(entityType), callBack);
+    }
+
+    public Perform<DbModel> findDbModelFirst(final SqlInfo sqlInfo,DbResponseCallBack<DbModel> callBack){
+        Perform<DbModel> perform = new Perform<DbModel>(new Perform.PerformDelivery<DbModel>() {
+            @Override
+            public DbModel execute() throws DbException {
+                return findDbModelFirst(sqlInfo);
+            }
+        },callBack);
+        return mPerformQueue.add(perform);
+    }
+
     public DbModel findDbModelFirst(SqlInfo sqlInfo) throws DbException {
         Cursor cursor = execQuery(sqlInfo);
         if (cursor != null) {
@@ -513,6 +758,16 @@ public class DbUtils {
             }
         }
         return null;
+    }
+
+    public Perform<DbModel> findDbModelFirst(final DbModelSelector selector,DbResponseCallBack<DbModel> callBack) {
+        Perform<DbModel> perform = new Perform<DbModel>(new Perform.PerformDelivery<DbModel>() {
+            @Override
+            public DbModel execute() throws DbException {
+                return findDbModelFirst(selector);
+            }
+        },callBack);
+        return mPerformQueue.add(perform);
     }
 
     public DbModel findDbModelFirst(DbModelSelector selector) throws DbException {
@@ -533,6 +788,16 @@ public class DbUtils {
         return null;
     }
 
+    public Perform<List<DbModel>> findDbModelAll(final SqlInfo sqlInfo,DbResponseCallBack<List<DbModel>> callBack) {
+        Perform<List<DbModel>> perform = new Perform<List<DbModel>>(new Perform.PerformDelivery<List<DbModel>>() {
+            @Override
+            public List<DbModel> execute() throws DbException {
+                return findDbModelAll(sqlInfo);
+            }
+        },callBack);
+        return mPerformQueue.add(perform);
+    }
+
     public List<DbModel> findDbModelAll(SqlInfo sqlInfo) throws DbException {
         List<DbModel> dbModelList = new ArrayList<DbModel>();
 
@@ -549,6 +814,16 @@ public class DbUtils {
             }
         }
         return dbModelList;
+    }
+
+    public Perform<List<DbModel>> findDbModelAll(final DbModelSelector selector,DbResponseCallBack<List<DbModel>> callBack){
+        Perform<List<DbModel>> perform = new Perform<List<DbModel>>(new Perform.PerformDelivery<List<DbModel>>() {
+            @Override
+            public List<DbModel> execute() throws DbException {
+                return findDbModelAll(selector);
+            }
+        },callBack);
+        return mPerformQueue.add(perform);
     }
 
     public List<DbModel> findDbModelAll(DbModelSelector selector) throws DbException {
@@ -571,6 +846,16 @@ public class DbUtils {
         return dbModelList;
     }
 
+    public Perform<Long> count(final Selector selector,DbResponseCallBack<Long> callBack) {
+        Perform<Long> perform = new Perform<Long>(new Perform.PerformDelivery<Long>() {
+            @Override
+            public Long execute() throws DbException {
+                return count(selector);
+            }
+        },callBack);
+        return mPerformQueue.add(perform);
+    }
+
     public long count(Selector selector) throws DbException {
         Class<?> entityType = selector.getEntityType();
         if (!tableIsExist(entityType)) return 0;
@@ -580,6 +865,9 @@ public class DbUtils {
         return findDbModelFirst(dmSelector).getLong("count");
     }
 
+    public Perform<Long> count(Class<?> entityType,DbResponseCallBack<Long> callBack) {
+        return count(Selector.from(entityType),callBack);
+    }
     public long count(Class<?> entityType) throws DbException {
         return count(Selector.from(entityType));
     }
