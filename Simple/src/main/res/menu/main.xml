@@ -1,9 +1,8 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <item
         android:id="@+id/volley"
         android:icon="@drawable/tab_friend_sel"
-        app:showAsAction="always"
+        android:showAsAction="always"
         android:title="Volley" />
 
 </menu>

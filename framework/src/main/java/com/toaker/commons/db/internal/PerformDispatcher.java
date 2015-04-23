@@ -64,7 +64,7 @@ public class PerformDispatcher extends Thread{
                 if(perform.isCancel()){
                     continue;
                 }
-                mExecutorDelivery.postResponse(perform.mCallBack, (Response<?>) perform.execute());
+                mExecutorDelivery.postResponse(perform.mCallBack, Response.success(perform.execute()));
             }catch (DbException error){
                 mExecutorDelivery.postError(perform.mCallBack,error);
             }catch (Exception e){

@@ -47,6 +47,10 @@ public class Response<T> {
         return error == null;
     }
 
+    public static <T> Response<T> success(T result){
+        return new Response<T>(result);
+    }
+
     private Response(T result) {
         this.result = result;
         this.error = null;

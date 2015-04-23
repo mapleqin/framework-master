@@ -54,7 +54,6 @@ public class Framework {
     }
 
     private void initImageLoad() {
-
     }
 
     public static Framework getInstance(){

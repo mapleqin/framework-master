@@ -16,6 +16,7 @@
 package com.toaker.commons.db.internal;
 
 import java.util.concurrent.PriorityBlockingQueue;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Decorator for framework-master
@@ -30,6 +31,9 @@ public class PerformQueue {
     private final PriorityBlockingQueue<Perform<?>> mPerformQueue =
             new PriorityBlockingQueue<Perform<?>>();
 
+    /** Used for generating monotonically-increasing sequence numbers for requests. */
+    private AtomicInteger mSequenceGenerator = new AtomicInteger();
+
     private final ResponseDelivery mResponseDelivery;
 
     private final PerformDispatcher[] mPerformDispatchers;
@@ -40,7 +44,7 @@ public class PerformQueue {
     }
 
     public PerformQueue(ResponseDelivery responseDelivery){
-        this(responseDelivery,10);
+        this(responseDelivery,5);
     }
 
     public void start(){
@@ -68,7 +72,15 @@ public class PerformQueue {
         if(perform == null){
             return null;
         }
+        perform.setSequence(getSequenceNumber());
         mPerformQueue.add(perform);
         return perform;
+    }
+
+    /**
+     * Gets a sequence number.
+     */
+    public int getSequenceNumber() {
+        return mSequenceGenerator.incrementAndGet();
     }
 }

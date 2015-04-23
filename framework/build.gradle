@@ -2,13 +2,13 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "20.0.0"
+    buildToolsVersion "21.1.2"
 
     defaultConfig {
         minSdkVersion 9
         targetSdkVersion 16
         versionCode 1
-        versionName "1.2.3.2"
+        versionName "1.2.3.3"
     }
 
 
@@ -89,6 +89,7 @@ task copyLibs << {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:19.+'
+    compile 'com.toaker.support.v7:appcompat:21.0.0'
+    compile 'com.toaker.support.v4:android:21.0.1'
     compile 'com.toaker.common:tlog:1.1.0@aar'
 }

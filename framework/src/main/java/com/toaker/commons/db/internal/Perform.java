@@ -25,9 +25,11 @@ import com.toaker.commons.db.exception.DbException;
  *         [Toaker](http://www.toaker.com)
  * @Time Create by 2015/4/22 11:58
  */
-public class Perform <T>{
+public class Perform <T> implements Comparable<Perform<T>>{
 
     private boolean isCancel;
+
+    public Integer mSequence;
 
     private final PerformDelivery<T> mPerformDelivery;
 
@@ -51,6 +53,15 @@ public class Perform <T>{
 
     public boolean isCancel(){
         return this.isCancel;
+    }
+
+    public void setSequence(Integer integer){
+        this.mSequence = integer;
+    }
+
+    @Override
+    public int compareTo(Perform<T> another) {
+        return this.mSequence - another.mSequence;
     }
 
     public interface PerformDelivery<T>{

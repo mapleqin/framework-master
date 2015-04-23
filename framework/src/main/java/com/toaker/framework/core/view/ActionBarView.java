@@ -23,7 +23,6 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.toaker.framework.R;
 import com.toaker.framework.core.component.ActionBar;
 import com.toaker.framework.core.utils.ScaleController;
 
@@ -194,7 +193,7 @@ public class ActionBarView extends CoreViewGroup {
             throw new IllegalArgumentException("The parameters of the illegal Activity is NULL");
         }
         this.mActivity = activity;
-        this.defaultHeight = mActivity.getResources().getDimension(R.dimen.abc_action_bar_default_height);
+        //this.defaultHeight = mActivity.getResources().getDimension(R.dimen.abc_action_bar_default_height);
         attach();
     }
 

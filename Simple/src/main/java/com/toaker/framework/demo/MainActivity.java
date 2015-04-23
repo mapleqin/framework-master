@@ -9,25 +9,50 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.toaker.common.tlog.TLog;
+import com.toaker.commons.db.DbUtils;
+import com.toaker.commons.db.callback.DbResponseCallBack;
+import com.toaker.commons.db.exception.DbException;
 import com.toaker.framework.app.Framework;
 import com.toaker.framework.core.component.NavigationBar;
 import com.toaker.framework.core.surface.activity.BaseActionBarFragmentActivity;
 import com.toaker.framework.core.widget.NavigationBarImpl;
 
+import java.util.List;
 
-public class MainActivity extends BaseActionBarFragmentActivity implements NavigationBar.NavigationChangeListener {
+
+public class MainActivity extends BaseActionBarFragmentActivity implements NavigationBar.NavigationChangeListener, DbResponseCallBack<List<Test>> {
+
+    private static int VERSION = 1;
+
+    private static final String LOG_TAG = "MainActivity " + ++VERSION;
+
+    private static final boolean DEBUG = true;
 
     private static String [] TITLES = new String[]{"广场","消息","好友","设置"};
 
     private NavigationBar mNavigationBar;
 
+    private DbUtils dbUtils;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Framework.init(this);
         super.onCreate(savedInstanceState);
+        DbUtils.init(this);
+        dbUtils = DbUtils.getInstance();
         setContentView(R.layout.activity_main);
         mNavigationBar = (NavigationBar) findViewById(R.id.navigation_bar);
         init();
+
+//        List<Test> data = new ArrayList<Test>();
+//        for (int i=0;i<50;i++){
+//            data.add(new Test("name:" + i));
+//        }
+        dbUtils.findAll(Test.class,this);
+        if(DEBUG){
+            TLog.d(LOG_TAG,"》》》》》》》");
+        }
     }
 
     private void init() {
@@ -96,5 +121,20 @@ public class MainActivity extends BaseActionBarFragmentActivity implements Navig
     @Override
     public void onChange(View view, NavigationBar.Navigation navigation, int position) {
         mActionBarWrapper.setCenterTitle(TITLES[position]);
+    }
+
+    @Override
+    public void onAccessSuccess(List<Test> response) {
+        if(DEBUG){
+            TLog.d(LOG_TAG,"onAccessSuccess ,%s",response);
+        }
+        mNavigationBar.setBackgroundColor(0xFFFF0000);
+    }
+
+    @Override
+    public void onAccessError(DbException error) {
+        if(DEBUG){
+            TLog.d(LOG_TAG,"onAccessError : %s",error.getLocalizedMessage());
+        }
     }
 }
