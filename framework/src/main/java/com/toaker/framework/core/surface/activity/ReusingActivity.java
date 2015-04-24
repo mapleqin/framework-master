@@ -1,13 +1,13 @@
 package com.toaker.framework.core.surface.activity;
 
-import android.app.ActionBar;
 import android.os.Bundle;
 import android.view.KeyEvent;
 
+import com.toaker.framework.R;
 import com.toaker.framework.core.surface.FragmentParameter;
 import com.toaker.framework.core.surface.fragment.AbsFragment;
 
-public class ReusingActivity extends BaseActionBarFragmentActivity {
+public class ReusingActivity extends BaseActionBarActivity {
 
     private ReusingActivityHelper helper;
 
@@ -21,6 +21,7 @@ public class ReusingActivity extends BaseActionBarFragmentActivity {
             helper = new ReusingActivityHelper(this);
         }
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_reusing);
         if(getIntent() != null){
             mFragmentParameter = getIntent().getParcelableExtra(ReusingActivityHelper.SINGLE_FRAGMENT_ACTIVITY_START_ME_PARAM);
         }
@@ -47,11 +48,6 @@ public class ReusingActivity extends BaseActionBarFragmentActivity {
        super.onBackPressed();
     }
 
-
-    @Override
-    public ActionBar getActionBar() {
-        return super.getActionBar();
-    }
 
     public AbsFragment getCurrentFragment() {
         return mCurrentFragment;

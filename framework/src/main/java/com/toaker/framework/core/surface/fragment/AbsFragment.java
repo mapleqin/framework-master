@@ -200,38 +200,38 @@ public abstract class AbsFragment extends Fragment {
     }
 
     public void setCenterTitle(CharSequence title){
-        if(getReusingActivity() != null && getReusingActivity().getActionBarWrapper() != null){
-            getReusingActivity().getActionBarWrapper().setCenterTitle(title);
+        if(getReusingActivity() != null && getReusingActivity().getToolBar() != null){
+            getReusingActivity().getToolBar().setCenterTitle(title);
         }
     }
 
     public void setCenterTitle(int resId){
-        if(getReusingActivity() != null && getReusingActivity().getActionBarWrapper() != null){
-            getReusingActivity().getActionBarWrapper().setCenterTitle(resId);
+        if(getReusingActivity() != null && getReusingActivity().getToolBar() != null){
+            getReusingActivity().getToolBar().setCenterTitle(resId);
         }
     }
 
     public void setCenterTitleColor(int color){
-        if(getReusingActivity() != null && getReusingActivity().getActionBarWrapper() != null){
-            getReusingActivity().getActionBarWrapper().getCenterTitleView().setTextColor(color);
+        if(getReusingActivity() != null && getReusingActivity().getToolBar() != null){
+            getReusingActivity().getToolBar().getCenterTitleView().setTextColor(color);
         }
     }
 
     public void setCenterTitleSize(float size){
-        if(getReusingActivity() != null && getReusingActivity().getActionBarWrapper() != null){
-            getReusingActivity().getActionBarWrapper().getCenterTitleView().setTextSize(size);
+        if(getReusingActivity() != null && getReusingActivity().getToolBar() != null){
+            getReusingActivity().getToolBar().getCenterTitleView().setTextSize(size);
         }
     }
 
     public void setCenterView(View centerView){
-        if(getReusingActivity() != null && getReusingActivity().getActionBarWrapper() != null){
-            getReusingActivity().getActionBarWrapper().setCenterView(centerView);
+        if(getReusingActivity() != null && getReusingActivity().getToolBar() != null){
+            getReusingActivity().getToolBar().setCenterView(centerView);
         }
     }
 
     public TextView getCenterTitleView(){
-        if(getReusingActivity() != null && getReusingActivity().getActionBarWrapper() != null){
-            return getReusingActivity().getActionBarWrapper().getCenterTitleView();
+        if(getReusingActivity() != null && getReusingActivity().getToolBar() != null){
+            return getReusingActivity().getToolBar().getCenterTitleView();
         }
         return null;
     }

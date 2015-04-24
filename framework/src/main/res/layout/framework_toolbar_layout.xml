@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<com.toaker.framework.core.component.ToolBarWrapper xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:framework="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:background="?attr/colorPrimary"
+    android:minHeight="?attr/actionBarSize"
+    framework:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+    framework:theme="@style/ThemeOverlay.AppCompat.ActionBar" >
 
-</LinearLayout>
+</com.toaker.framework.core.component.ToolBarWrapper>

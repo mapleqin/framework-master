@@ -15,12 +15,12 @@
  *******************************************************************************/
 package com.toaker.framework.core.surface.activity;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 
-import com.toaker.framework.core.component.ActionBarWrapper;
+import com.toaker.framework.R;
+import com.toaker.framework.core.component.ToolBarWrapper;
 import com.toaker.framework.core.surface.FragmentParameter;
 
 /**
@@ -31,25 +31,28 @@ import com.toaker.framework.core.surface.FragmentParameter;
  * @Description:
  * @Time Create by 2015/4/6 21:25
  */
-public class BaseActionBarActivity extends Activity {
+public class BaseActionBarActivity extends ActionBarActivity {
 
-    protected ActionBarWrapper mActionBarWrapper;
+    protected ToolBarWrapper mToolBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mActionBarWrapper = new ActionBarWrapper(getActionBar());
     }
 
     @Override
-    @Deprecated
-    public ActionBar getActionBar() {
-        return super.getActionBar();
+    public void setContentView(int layoutResID) {
+        super.setContentView(layoutResID);
+        mToolBar = (ToolBarWrapper) findViewById(R.id.toolbar);
+        if(mToolBar != null){
+            super.setSupportActionBar(mToolBar);
+        }
     }
 
-    public ActionBarWrapper getActionBarWrapper() {
-        return mActionBarWrapper;
+    public ToolBarWrapper getToolBar(){
+        return mToolBar;
     }
+
 
     public void jumpFragment(FragmentParameter parameter){
         if(parameter == null || parameter.getFragmentClass() == null){

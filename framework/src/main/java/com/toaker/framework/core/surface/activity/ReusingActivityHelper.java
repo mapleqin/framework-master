@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import com.toaker.framework.R;
 import com.toaker.framework.core.surface.FragmentParameter;
 import com.toaker.framework.core.surface.fragment.AbsFragment;
 import com.toaker.framework.core.surface.fragment.BaseFragment;
@@ -39,7 +40,7 @@ public class ReusingActivityHelper {
         if (fragment == null) {
             FragmentTransaction ft = fm.beginTransaction();
             fragment = (AbsFragment) Fragment.instantiate(mActivity, parameter.getFragmentClass().getName(), parameter.getParams());
-            ft.add(android.R.id.content,fragment, parameter.getTag());
+            ft.add(R.id.content,fragment, parameter.getTag());
             ft.commit();
         } else if (fragment.isDetached()) {
             FragmentTransaction ft = fm.beginTransaction();
