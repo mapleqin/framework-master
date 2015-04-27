@@ -20,7 +20,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
-import com.toaker.framework.core.component.ActionBarWrapper;
 import com.toaker.framework.core.surface.FragmentParameter;
 
 /**
@@ -33,22 +32,15 @@ import com.toaker.framework.core.surface.FragmentParameter;
  */
 public class BaseActionBarFragmentActivity extends FragmentActivity {
 
-    protected ActionBarWrapper mActionBarWrapper;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mActionBarWrapper = new ActionBarWrapper(getActionBar());
     }
 
     @Override
     @Deprecated
     public ActionBar getActionBar() {
         return super.getActionBar();
-    }
-
-    public ActionBarWrapper getActionBarWrapper() {
-        return mActionBarWrapper;
     }
 
     public void jumpFragment(FragmentParameter parameter){

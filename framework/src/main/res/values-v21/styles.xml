@@ -1,9 +1,9 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="Theme.framework" parent="@style/FM.BaseTheme">
+    <!--<style name="Theme.framework" parent="@style/FM.BaseTheme">
 
-        <!-- 底部导航栏颜色 -->
+        &lt;!&ndash; 底部导航栏颜色 &ndash;&gt;
         <item name="android:navigationBarColor">#4876FF</item>
-    </style>
+    </style>-->
 
 </resources>

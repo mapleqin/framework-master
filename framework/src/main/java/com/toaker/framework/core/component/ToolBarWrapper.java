@@ -16,7 +16,6 @@
 package com.toaker.framework.core.component;
 
 import android.content.Context;
-import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +33,7 @@ import java.lang.reflect.Field;
  *         [Toaker](http://www.toaker.com)
  * @Time Create by 2015/4/23 14:06
  */
-public class ToolBarWrapper extends Toolbar {
+public class ToolBarWrapper extends ViewGroup {
 
     private RelativeLayout mToolBarGroup;
 
@@ -62,6 +61,11 @@ public class ToolBarWrapper extends Toolbar {
     public ToolBarWrapper(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initialize();
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+
     }
 
     private void initialize() {

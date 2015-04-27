@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/xi_title_bar_group"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/abs__action_bar_default_height"
+        android:background="#ffffbb33">
+
+        <com.xiaodao360.xiaodaow.view.scaleview.ScaleImageButton
+            android:id="@+id/xi_title_bar_left_action"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="30dp"
+            android:background="@drawable/title_bar_left_default_bg" />
+
+        <com.xiaodao360.xiaodaow.view.scaleview.ScaleImageButton
+            android:id="@+id/xi_title_bar_right_action"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/title_bar_right_default_bg" />
+
+
+        <TextView
+            android:id="@+id/xi_title_bar_middle_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:singleLine="true"
+            android:gravity="center"/>
+    </RelativeLayout>
+</FrameLayout>

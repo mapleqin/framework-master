@@ -12,12 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 
 import com.toaker.framework.R;
 import com.toaker.framework.core.surface.FragmentParameter;
 import com.toaker.framework.core.surface.activity.ReusingActivity;
 import com.toaker.framework.core.surface.activity.ReusingActivityHelper;
+import com.toaker.framework.core.widget.TitleBar;
 
 
 public abstract class AbsFragment extends Fragment {
@@ -49,6 +49,14 @@ public abstract class AbsFragment extends Fragment {
 
     protected View getCustomView(LayoutInflater inflater, FrameLayout containerView, Bundle savedInstanceState,boolean isRoot){
         return inflater.inflate(getResourceLayoutId(),containerView,isRoot);
+    }
+
+    public boolean attachTitleBar(LayoutInflater inflater,ViewGroup containerView){
+        return false;
+    }
+
+    public TitleBar getTitleBar(){
+        return getReusingActivity() == null?null:getReusingActivity().getTitleBar();
     }
 
     public abstract int getResourceLayoutId();
@@ -199,40 +207,4 @@ public abstract class AbsFragment extends Fragment {
         }
     }
 
-    public void setCenterTitle(CharSequence title){
-        if(getReusingActivity() != null && getReusingActivity().getToolBar() != null){
-            getReusingActivity().getToolBar().setCenterTitle(title);
-        }
-    }
-
-    public void setCenterTitle(int resId){
-        if(getReusingActivity() != null && getReusingActivity().getToolBar() != null){
-            getReusingActivity().getToolBar().setCenterTitle(resId);
-        }
-    }
-
-    public void setCenterTitleColor(int color){
-        if(getReusingActivity() != null && getReusingActivity().getToolBar() != null){
-            getReusingActivity().getToolBar().getCenterTitleView().setTextColor(color);
-        }
-    }
-
-    public void setCenterTitleSize(float size){
-        if(getReusingActivity() != null && getReusingActivity().getToolBar() != null){
-            getReusingActivity().getToolBar().getCenterTitleView().setTextSize(size);
-        }
-    }
-
-    public void setCenterView(View centerView){
-        if(getReusingActivity() != null && getReusingActivity().getToolBar() != null){
-            getReusingActivity().getToolBar().setCenterView(centerView);
-        }
-    }
-
-    public TextView getCenterTitleView(){
-        if(getReusingActivity() != null && getReusingActivity().getToolBar() != null){
-            return getReusingActivity().getToolBar().getCenterTitleView();
-        }
-        return null;
-    }
 }

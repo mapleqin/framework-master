@@ -15,12 +15,10 @@
  *******************************************************************************/
 package com.toaker.framework.core.surface.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 
-import com.toaker.framework.R;
-import com.toaker.framework.core.component.ToolBarWrapper;
 import com.toaker.framework.core.surface.FragmentParameter;
 
 /**
@@ -31,9 +29,7 @@ import com.toaker.framework.core.surface.FragmentParameter;
  * @Description:
  * @Time Create by 2015/4/6 21:25
  */
-public class BaseActionBarActivity extends ActionBarActivity {
-
-    protected ToolBarWrapper mToolBar;
+public class BaseActionBarActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,14 +39,6 @@ public class BaseActionBarActivity extends ActionBarActivity {
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
-        mToolBar = (ToolBarWrapper) findViewById(R.id.toolbar);
-        if(mToolBar != null){
-            super.setSupportActionBar(mToolBar);
-        }
-    }
-
-    public ToolBarWrapper getToolBar(){
-        return mToolBar;
     }
 
 

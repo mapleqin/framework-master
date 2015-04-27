@@ -1,7 +1,6 @@
 package com.toaker.framework.demo;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -56,9 +55,9 @@ public class MainActivity extends BaseActionBarFragmentActivity implements Navig
     }
 
     private void init() {
-        mActionBarWrapper.setCenterTextColor(Color.WHITE);
-        mActionBarWrapper.setDisplayShowTitleEnabled(false);
-        mActionBarWrapper.setCenterTextSize(18);
+//        mActionBarWrapper.setCenterTextColor(Color.WHITE);
+//        mActionBarWrapper.setDisplayShowTitleEnabled(false);
+//        mActionBarWrapper.setCenterTextSize(18);
 //        mActionBarWrapper.setDisplayShowHomeEnabled(false);
 
         mNavigationBar.setBackgroundColor(0xFF484848);
@@ -120,7 +119,7 @@ public class MainActivity extends BaseActionBarFragmentActivity implements Navig
 
     @Override
     public void onChange(View view, NavigationBar.Navigation navigation, int position) {
-        mActionBarWrapper.setCenterTitle(TITLES[position]);
+//        mActionBarWrapper.setCenterTitle(TITLES[position]);
     }
 
     @Override
