@@ -8,7 +8,7 @@ android {
         minSdkVersion 9
         targetSdkVersion 19
         versionCode 1
-        versionName "1.2.3.6"
+        versionName "1.2.3.9"
     }
 
 
@@ -91,6 +91,7 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 //    compile 'com.toaker.support.v7:appcompat:21.0.0'
     //compile 'com.android.support:appcompat-v7:21.0.3'
+    compile 'com.toaker.support.v4:android:21.0.1'
     compile 'com.toaker.support.v4:android:21.0.1'
     compile 'com.toaker.common:tlog:1.1.0@aar'
 }

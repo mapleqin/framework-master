@@ -51,7 +51,8 @@ public class ReusingActivity extends BaseActionBarFragmentActivity {
                     mTitleBar.setVisibility(View.VISIBLE);
                 }else {
                     mTitleBarGroup.removeAllViews();
-                    mTitleBar = (TitleBar) mInflater.inflate(R.layout.title_bar_default,mTitleBarGroup);
+                    mInflater.inflate(R.layout.title_bar_default,mTitleBarGroup);
+                    mTitleBar = (TitleBar) mTitleBarGroup.findViewById(R.id.title_bar);
                 }
             }
         }

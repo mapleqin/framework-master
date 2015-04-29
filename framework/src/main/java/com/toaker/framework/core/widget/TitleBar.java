@@ -44,6 +44,8 @@ public class TitleBar extends FrameLayout {
 
     private ImageButton    mActionRight;
 
+    private ImageButton    mRightCenter;
+
     private TextView       mTitleText;
 
     private View           mCustomView;
@@ -65,6 +67,11 @@ public class TitleBar extends FrameLayout {
         mActionLeft = (ImageButton) findViewById(R.id.xi_title_bar_left_action);
         mActionRight = (ImageButton) findViewById(R.id.xi_title_bar_right_action);
         mTitleText = (TextView) findViewById(R.id.xi_title_bar_middle_text);
+        mRightCenter = (ImageButton) findViewById(R.id.xi_title_bar_right_action2);
+    }
+
+    public void setActionRightCenterResource(int resId){
+        mRightCenter.setImageResource(resId);
     }
 
     public void setActionLeftResource(int resId){
@@ -75,6 +82,9 @@ public class TitleBar extends FrameLayout {
         mActionRight.setImageResource(resId);
     }
 
+    public void setActionRightCenterVisibility(int visibility) {
+        mRightCenter.setVisibility(visibility);
+    }
     public void setActionLeftVisibility(int visibility) {
         mActionLeft.setVisibility(visibility);
     }
@@ -91,6 +101,10 @@ public class TitleBar extends FrameLayout {
         mActionLeft.setOnClickListener(clickListener);
     }
 
+    public void setActionRightCenterClickListener(OnClickListener clickListener){
+        mRightCenter.setOnClickListener(clickListener);
+    }
+
     public void setActionRightClickListener(OnClickListener clickListener){
         mActionRight.setOnClickListener(clickListener);
     }
@@ -98,6 +112,8 @@ public class TitleBar extends FrameLayout {
     public void reset(){
         mActionRight.setImageResource(0);
         mActionLeft.setImageResource(0);
+        mRightCenter.setOnClickListener(null);
+        mRightCenter.setImageResource(0);
         mActionLeft.setOnClickListener(null);
         mActionRight.setOnClickListener(null);
         if(this.mCustomView != null && this.mCustomView.getParent() != null){
@@ -143,6 +159,18 @@ public class TitleBar extends FrameLayout {
         super.setBackgroundDrawable(background);
         if(mTitleGroup != null){
             mTitleGroup.setBackgroundDrawable(background);
+        }
+    }
+
+    public void show(){
+        if(getVisibility() != VISIBLE){
+            setVisibility(VISIBLE);
+        }
+    }
+
+    public void hide(){
+        if(getVisibility() != GONE){
+            setVisibility(GONE);
         }
     }
 

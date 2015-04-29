@@ -7,21 +7,30 @@
         android:id="@+id/xi_title_bar_group"
         android:layout_width="match_parent"
         android:layout_height="@dimen/abs__action_bar_default_height"
-        android:background="#ffffbb33">
+        android:background="#FF4DD487">
 
-        <com.xiaodao360.xiaodaow.view.scaleview.ScaleImageButton
+        <ImageButton
             android:id="@+id/xi_title_bar_left_action"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:padding="30dp"
             android:background="@drawable/title_bar_left_default_bg" />
 
-        <com.xiaodao360.xiaodaow.view.scaleview.ScaleImageButton
+        <ImageButton
             android:id="@+id/xi_title_bar_right_action"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:padding="30dp"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/title_bar_right_default_bg" />
+
+        <ImageButton
+            android:id="@+id/xi_title_bar_right_action2"
+            android:layout_toLeftOf="@id/xi_title_bar_right_action"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="30dp"
             android:layout_centerVertical="true"
             android:background="@drawable/title_bar_right_default_bg" />
 
