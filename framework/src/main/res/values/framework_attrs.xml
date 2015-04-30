@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ComplexActionLayout">
+        <attr name="icon" format="reference"/>
+        <attr name="textSize" format="dimension"/>
+        <attr name="textColor" format="color"/>
+        <attr name="text" format="string"/>
+        <attr name="options" format="enum">
+            <enum name="ICON_LEFT" value="1"/>
+            <enum name="ICON_RIGHT" value="2"/>
+            <enum name="SOLE_ICON" value="4"/>
+            <enum name="SOLE_TEXT" value="8"/>
+        </attr>
+    </declare-styleable>
+</resources>

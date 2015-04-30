@@ -22,11 +22,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.toaker.framework.R;
+import com.toaker.framework.core.view.ComplexActionLayout;
 
 
 /**
@@ -40,11 +40,11 @@ public class TitleBar extends FrameLayout {
 
     private RelativeLayout mTitleGroup;
 
-    private ImageButton    mActionLeft;
+    private ComplexActionLayout mActionLeft;
 
-    private ImageButton    mActionRight;
+    private ComplexActionLayout    mActionRight;
 
-    private ImageButton    mRightCenter;
+    private ComplexActionLayout    mRightCenter;
 
     private TextView       mTitleText;
 
@@ -64,22 +64,22 @@ public class TitleBar extends FrameLayout {
     private void initialize() {
         LayoutInflater.from(getContext()).inflate(R.layout.custom_title_bar,this);
         mTitleGroup = (RelativeLayout) findViewById(R.id.xi_title_bar_group);
-        mActionLeft = (ImageButton) findViewById(R.id.xi_title_bar_left_action);
-        mActionRight = (ImageButton) findViewById(R.id.xi_title_bar_right_action);
+        mActionLeft = (ComplexActionLayout) findViewById(R.id.xi_title_bar_left_action);
+        mActionRight = (ComplexActionLayout) findViewById(R.id.xi_title_bar_right_action);
         mTitleText = (TextView) findViewById(R.id.xi_title_bar_middle_text);
-        mRightCenter = (ImageButton) findViewById(R.id.xi_title_bar_right_action2);
+        mRightCenter = (ComplexActionLayout) findViewById(R.id.xi_title_bar_right_action2);
     }
 
     public void setActionRightCenterResource(int resId){
-        mRightCenter.setImageResource(resId);
+        mRightCenter.setIconImageResource(resId);
     }
 
     public void setActionLeftResource(int resId){
-        mActionLeft.setImageResource(resId);
+        mActionLeft.setIconImageResource(resId);
     }
 
     public void setActionRightResource(int resId){
-        mActionRight.setImageResource(resId);
+        mActionRight.setIconImageResource(resId);
     }
 
     public void setActionRightCenterVisibility(int visibility) {
@@ -110,10 +110,10 @@ public class TitleBar extends FrameLayout {
     }
 
     public void reset(){
-        mActionRight.setImageResource(0);
-        mActionLeft.setImageResource(0);
+        mActionRight.setIconImageResource(0);
+        mActionLeft.setIconImageResource(0);
         mRightCenter.setOnClickListener(null);
-        mRightCenter.setImageResource(0);
+        mRightCenter.setIconImageResource(0);
         mActionLeft.setOnClickListener(null);
         mActionRight.setOnClickListener(null);
         if(this.mCustomView != null && this.mCustomView.getParent() != null){
@@ -162,6 +162,18 @@ public class TitleBar extends FrameLayout {
         }
     }
 
+    public void setLeftText(CharSequence text){
+        mActionLeft.setText(text);
+    }
+
+    public void setRightText(CharSequence text){
+        mActionRight.setText(text);
+    }
+
+    public void setRightCenterText(CharSequence text){
+        mRightCenter.setText(text);
+    }
+
     public void show(){
         if(getVisibility() != VISIBLE){
             setVisibility(VISIBLE);
@@ -178,12 +190,16 @@ public class TitleBar extends FrameLayout {
         return mTitleGroup;
     }
 
-    public ImageButton getActionLeft() {
+    public ComplexActionLayout getActionLeft() {
         return mActionLeft;
     }
 
-    public ImageButton getActionRight() {
+    public ComplexActionLayout getActionRight() {
         return mActionRight;
+    }
+
+    public ComplexActionLayout getRightCenter() {
+        return mRightCenter;
     }
 
     public TextView getTitleText() {

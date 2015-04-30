@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:framework="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -9,29 +11,40 @@
         android:layout_height="@dimen/abs__action_bar_default_height"
         android:background="#FF4DD487">
 
-        <ImageButton
+        <com.toaker.framework.core.view.ComplexActionLayout
             android:id="@+id/xi_title_bar_left_action"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:padding="30dp"
+            android:padding="15dp"
+            android:gravity="center"
+            framework:options="ICON_LEFT"
+            framework:textSize="16sp"
+            framework:textColor="@android:color/white"
             android:background="@drawable/title_bar_left_default_bg" />
 
-        <ImageButton
+        <com.toaker.framework.core.view.ComplexActionLayout
             android:id="@+id/xi_title_bar_right_action"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:padding="30dp"
+            android:padding="15dp"
+            android:gravity="center"
+            framework:options="SOLE_ICON"
+            framework:textSize="16sp"
+            framework:textColor="@android:color/white"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
             android:background="@drawable/title_bar_right_default_bg" />
 
-        <ImageButton
+        <com.toaker.framework.core.view.ComplexActionLayout
             android:id="@+id/xi_title_bar_right_action2"
             android:layout_toLeftOf="@id/xi_title_bar_right_action"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:padding="30dp"
-            android:layout_centerVertical="true"
+            android:padding="15dp"
+            android:gravity="center"
+            android:visibility="gone"
+            framework:options="SOLE_ICON"
+            framework:textSize="16sp"
+            framework:textColor="@android:color/white"
             android:background="@drawable/title_bar_right_default_bg" />
 
 
