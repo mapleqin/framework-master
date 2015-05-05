@@ -29,7 +29,7 @@ import com.toaker.framework.utils.FrameworkLog;
  * @Description:
  * @Time Create by 2015/4/9 14:19
  */
-public abstract class AbsFrameworkListView extends ListView {
+public class AbsFrameworkListView extends ListView {
 
     public AbsFrameworkListView(Context context) {
         super(context);
@@ -51,5 +51,7 @@ public abstract class AbsFrameworkListView extends ListView {
         return getFirstVisiblePosition() == 0 && getChildAt(0).getTop() == 0;
     }
 
-    public abstract void completeLoadMore();
+    public void completeLoadMore(){
+
+    }
 }

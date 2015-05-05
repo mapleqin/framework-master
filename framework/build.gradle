@@ -8,7 +8,7 @@ android {
         minSdkVersion 9
         targetSdkVersion 19
         versionCode 1
-        versionName "1.2.4.4"
+        versionName "1.2.4.7"
     }
 
 

@@ -29,7 +29,7 @@
             android:padding="15dp"
             android:gravity="center"
             framework:options="SOLE_ICON"
-            framework:textSize="16sp"
+            framework:textSize="12sp"
             framework:textColor="@android:color/white"
             android:layout_alignParentRight="true"
             android:background="@drawable/title_bar_right_default_bg" />
@@ -43,7 +43,7 @@
             android:gravity="center"
             android:visibility="gone"
             framework:options="SOLE_ICON"
-            framework:textSize="16sp"
+            framework:textSize="12sp"
             framework:textColor="@android:color/white"
             android:background="@drawable/title_bar_right_default_bg" />
 
