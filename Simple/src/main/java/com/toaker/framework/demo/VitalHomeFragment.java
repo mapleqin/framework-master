@@ -27,7 +27,12 @@ public class VitalHomeFragment extends BasePtrFrameworkFragment<HomeData> {
                 displayLoadingLayout(false);
             }
         },3000);
+
+        if(getTitleBar() != null){
+            getTitleBar().setLeftText("返回");
+        }
     }
+
 
 
     public void onSuccess(HomeData o) {

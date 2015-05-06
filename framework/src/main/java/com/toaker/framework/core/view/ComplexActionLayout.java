@@ -57,7 +57,7 @@ public class ComplexActionLayout extends LinearLayout {
 
     int mTextColor                                                   = 0xFFFFFFFF;
 
-    int mTextSize                                                    = 14;
+    int mTextSize                                                    = 16;
 
     int mOptions                                                     = FLAG_ICON_LEFT;
 

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -17,10 +18,11 @@ import com.android.volley.toolbox.VolleyErrorWrapper;
 import com.google.gson.Gson;
 import com.toaker.commons.db.NativeDbManager;
 import com.toaker.commons.db.exception.DbException;
+import com.toaker.framework.core.surface.FragmentParameter;
 import com.toaker.framework.core.surface.activity.BaseActionBarActivity;
 
 
-public class VolleyActivity extends BaseActionBarActivity {
+public class VolleyActivity extends BaseActionBarActivity implements AdapterView.OnItemClickListener {
 
     private HomeData  mData;
 
@@ -42,6 +44,7 @@ public class VolleyActivity extends BaseActionBarActivity {
         setContentView(R.layout.activity_volley);
         mRequestQueue = Volley.newRequestQueue(this);
         mListView = (ListView) findViewById(R.id.list);
+        mListView.setOnItemClickListener(this);
         mListAdapter = new ListAdapter();
         mListView.setAdapter(mListAdapter);
 
@@ -72,6 +75,11 @@ public class VolleyActivity extends BaseActionBarActivity {
             Log.e("DDDD",error.errMessage);
         }
     });
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        jumpFragment(new FragmentParameter(VitalHomeFragment.class));
+    }
 
 
     class ListAdapter extends BaseAdapter{
