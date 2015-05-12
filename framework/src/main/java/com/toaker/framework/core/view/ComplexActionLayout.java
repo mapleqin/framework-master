@@ -24,11 +24,15 @@ import android.support.annotation.IntDef;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.toaker.framework.R;
+import com.toaker.framework.utils.ViewUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -40,7 +44,7 @@ import java.lang.annotation.RetentionPolicy;
  *         [Toaker](http://www.toaker.com)
  * @Time Create by 2015/4/29 9:23
  */
-public class ComplexActionLayout extends LinearLayout {
+public class ComplexActionLayout extends FrameLayout {
 
     /** @hide */
     @IntDef({FLAG_ICON_LEFT, FLAG_ICON_RIGHT,FLAG_SOLE_ICON,FLAG_SOLE_TEXT})
@@ -69,6 +73,10 @@ public class ComplexActionLayout extends LinearLayout {
 
     private TextView  mTextView;
 
+    LinearLayout mActionGroup;
+
+    private View mUnreadView;
+
     public ComplexActionLayout(Context context) {
         this(context, null);
     }
@@ -88,8 +96,15 @@ public class ComplexActionLayout extends LinearLayout {
     }
 
     private void initialize() {
-        super.setOrientation(HORIZONTAL);
-        super.setGravity(Gravity.CENTER);
+        mActionGroup = new LinearLayout(getContext());
+        mUnreadView = new CircleView(getContext());
+        FrameLayout.LayoutParams layoutParams = new LayoutParams(ViewUtils.dip2px(getContext(),8),ViewUtils.dip2px(getContext(),8));
+        layoutParams.gravity = Gravity.RIGHT;
+        super.addView(mActionGroup, ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.MATCH_PARENT);
+        super.addView(mUnreadView,layoutParams);
+        mUnreadView.setVisibility(GONE);
+        mActionGroup.setOrientation(LinearLayout.HORIZONTAL);
+        mActionGroup.setGravity(Gravity.CENTER);
         mIconView = new ImageView(getContext());
         mTextView = new TextView(getContext());
         mTextView.setLinkTextColor(com.toaker.framework.R.drawable.title_text_white_click_bg);
@@ -105,32 +120,32 @@ public class ComplexActionLayout extends LinearLayout {
     }
 
     private void reset() {
-        super.removeAllViews();
+        mActionGroup.removeAllViews();
         switch (mOptions){
             case FLAG_ICON_LEFT:
                 mIconView.setVisibility(VISIBLE);
                 mTextView.setVisibility(VISIBLE);
-                super.addView(mIconView);
-                super.addView(mTextView);
+                mActionGroup.addView(mIconView);
+                mActionGroup.addView(mTextView);
                 break;
 
             case FLAG_ICON_RIGHT:
                 mIconView.setVisibility(VISIBLE);
                 mTextView.setVisibility(VISIBLE);
-                super.addView(mTextView);
-                super.addView(mIconView);
+                mActionGroup.addView(mTextView);
+                mActionGroup.addView(mIconView);
                 break;
 
             case FLAG_SOLE_ICON:
                 mIconView.setVisibility(VISIBLE);
                 mTextView.setVisibility(GONE);
-                super.addView(mIconView);
+                mActionGroup.addView(mIconView);
                 break;
 
             case FLAG_SOLE_TEXT:
                 mIconView.setVisibility(GONE);
                 mTextView.setVisibility(VISIBLE);
-                super.addView(mTextView);
+                mActionGroup.addView(mTextView);
                 break;
         }
     }
@@ -272,5 +287,13 @@ public class ComplexActionLayout extends LinearLayout {
 
     public TextView getTextView() {
         return mTextView;
+    }
+
+    public void setUnread(boolean unread){
+        if(unread){
+            mUnreadView.setVisibility(VISIBLE);
+        }else {
+            mUnreadView.setVisibility(GONE);
+        }
     }
 }

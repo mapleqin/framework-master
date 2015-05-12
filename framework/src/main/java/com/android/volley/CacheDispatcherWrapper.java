@@ -92,7 +92,9 @@ public class CacheDispatcherWrapper extends CacheDispatcher{
                 request.addMarker("cache-hit-parsed");
 
                 // Completely unexpired cache hit. Just deliver the response.
-                mDelivery.postResponse(request, response);
+                if(request.shouldCache()){
+                    mDelivery.postResponse(request, response);
+                }
 
                 // 检查是否需要刷新，
                 if (request.refreshNeeded()){

@@ -17,7 +17,6 @@ package com.toaker.framework.base;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import com.android.volley.ListenerWrapper;
 import com.android.volley.Request;
@@ -124,7 +123,6 @@ public abstract class BaseListFrameworkFragment<T extends ResponseWrapper> exten
      * @param error
      */
     protected void onError(VolleyErrorWrapper error){
-        Toast.makeText(getActivity(),error.getMessage(),Toast.LENGTH_SHORT).show();
     }
 
     protected abstract String getRequestUrl();

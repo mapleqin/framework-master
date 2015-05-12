@@ -52,6 +52,11 @@ public final class RequestParameter {
         return this;
     }
 
+    public RequestParameter add(String key, long value) {
+        add(key,String.format("%s",value));
+        return this;
+    }
+
     public RequestParameter addBodyParameter(String key, String value) {
         add(key, value);
         return this;

@@ -16,6 +16,7 @@
 package com.android.volley.toolbox;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -28,7 +29,9 @@ import com.android.volley.VolleyLog;
 import com.android.volley.entry.MultiPartEntity;
 import com.google.gson.Gson;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Map;
@@ -46,6 +49,8 @@ public class JsonDataRequest<T extends ResponseWrapper> extends Request<T> {
     private RequestParameter params;
 
     private ListenerWrapper<T> mListener;
+
+    private String mBodyContentType;
 
     private Gson    mJsonUtils;
 
@@ -136,6 +141,18 @@ public class JsonDataRequest<T extends ResponseWrapper> extends Request<T> {
     }
 
     @Override
+    public String getBodyContentType() {
+        if(params == null || params.getFileParams().isEmpty() || TextUtils.isEmpty(mBodyContentType)){
+            return super.getBodyContentType();
+        }
+        if(getMethod() != Method.POST){
+            return super.getBodyContentType();
+        }
+        return mBodyContentType;
+
+    }
+
+    @Override
     public byte[] getBody() throws AuthFailureError {
         return parseBody();
     }
@@ -159,6 +176,13 @@ public class JsonDataRequest<T extends ResponseWrapper> extends Request<T> {
             multipartEntity.addPart(entry.getKey(),entry.getValue(),currentIndex == lastIndex);
             currentIndex++;
         }
-        return multipartEntity.getBody();
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        try{
+            multipartEntity.writeTo(bos);
+        } catch (IOException e) {
+            Log.e("", "IOException writing to ByteArrayOutputStream");
+        }
+        mBodyContentType = multipartEntity.getContentType().getName();
+        return bos.toByteArray();
     }
 }

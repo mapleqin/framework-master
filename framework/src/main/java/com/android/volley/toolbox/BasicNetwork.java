@@ -54,6 +54,7 @@ import java.util.TreeMap;
  * A network performing Volley requests over an {@link HttpStack}.
  */
 public class BasicNetwork implements Network {
+
     protected static final boolean DEBUG = VolleyLog.DEBUG;
 
     private static int SLOW_REQUEST_THRESHOLD_MS = 3000;

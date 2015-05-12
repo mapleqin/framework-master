@@ -50,6 +50,8 @@ public class TitleBar extends FrameLayout {
 
     private View           mCustomView;
 
+    private int            mDefaultColor = 0xFF4DD487;
+
     private RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
     public TitleBar(Context context) {
@@ -119,6 +121,10 @@ public class TitleBar extends FrameLayout {
         if(this.mCustomView != null && this.mCustomView.getParent() != null){
             mTitleGroup.removeView(mCustomView);
         }
+    }
+
+    public void resetColor(){
+        setBackgroundColor(mDefaultColor);
     }
 
     public void setTitle(CharSequence title){

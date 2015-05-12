@@ -20,6 +20,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.util.ArrayMap;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -80,9 +81,9 @@ public class NavigationBarImpl extends FrameLayout implements NavigationBar, Vie
         params.gravity = Gravity.CENTER;
         super.addView(mViewGroup);
         this.mNavigationHeight = super.getResources().getDimension(R.dimen.abs__navigation_bar_default_height);
-        if(ScaleController.getInstance() != null){
-            mNavigationHeight = ScaleController.getInstance().getScreenHeight() * 0.23f;
-        }
+//        if(ScaleController.getInstance() != null){
+//            mNavigationHeight = ScaleController.getInstance().getScreenHeight() * 0.23f;
+//        }
         setNavigationBarHeight((int) this.mNavigationHeight);
 
     }
@@ -211,7 +212,7 @@ public class NavigationBarImpl extends FrameLayout implements NavigationBar, Vie
      * @Description:
      * @Time Create by 2015/4/6 15:35
      */
-    public static class IconNavigationImpl extends LinearLayout implements Navigation{
+    public static class IconNavigationImpl extends FrameLayout implements Navigation{
 
         private Drawable mDefaultDrawable;
 
@@ -239,26 +240,20 @@ public class NavigationBarImpl extends FrameLayout implements NavigationBar, Vie
 
         private boolean   mCheckStatus = false;
 
+        private View      mUnreadView;
+
         public IconNavigationImpl(Context context) {
             super(context);
             this.initialize();
         }
 
         private void initialize(){
-            super.setOrientation(VERTICAL);
-            mTextView = new TextView(getContext());
-            if(ScaleController.getInstance() != null){
-                this.mTextSize = ScaleController.getInstance().scaleTextSize(this.mTextSize);
-            }
-            mTextView.setTextSize(this.mTextSize);
+            LayoutInflater.from(getContext()).inflate(R.layout.framework_icon_navigation_impl,this);
+            mUnreadView = findViewById(R.id.fi_icon_navigation_unread);
+            mTextView = (TextView) findViewById(R.id.fi_icon_navigation_text);
             mTextView.setGravity(Gravity.CENTER);
-            mIconView = new ImageView(getContext());
+            mIconView = (ImageView) findViewById(R.id.fi_icon_navigation_icon);
             mSpacerView = new View(getContext());
-            mIconParams.weight  = 1;
-            super.addView(mIconView,mIconParams);
-            super.addView(mSpacerView,mSpacerParams);
-            mTextParams.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
-            super.addView(mTextView,mTextParams);
         }
 
         @Override
@@ -396,6 +391,14 @@ public class NavigationBarImpl extends FrameLayout implements NavigationBar, Vie
         @Override
         public boolean getCheckStatus() {
             return mCheckStatus;
+        }
+
+        public void setUnread(boolean unread){
+            if(unread){
+                mUnreadView.setVisibility(VISIBLE);
+            }else {
+                mUnreadView.setVisibility(GONE);
+            }
         }
     }
 }

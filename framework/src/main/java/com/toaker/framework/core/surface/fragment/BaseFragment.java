@@ -81,7 +81,7 @@ public abstract class BaseFragment extends AbsFragment implements View.OnClickLi
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        displayEmptyLayout(true);
+        displayEmptyLayout(false);
         displayLoadingLayout(true);
     }
 

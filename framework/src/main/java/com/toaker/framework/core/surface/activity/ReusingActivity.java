@@ -49,6 +49,7 @@ public class ReusingActivity extends BaseActionBarFragmentActivity {
             }else {
                 if(mTitleBar != null && mTitleBarGroup.indexOfChild(mTitleBar) != -1){
                     mTitleBar.setVisibility(View.VISIBLE);
+                    mTitleBar.resetColor();
                 }else {
                     mTitleBarGroup.removeAllViews();
                     mInflater.inflate(R.layout.title_bar_default,mTitleBarGroup);

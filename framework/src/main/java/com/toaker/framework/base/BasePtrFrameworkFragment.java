@@ -19,7 +19,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import com.android.volley.ListenerWrapper;
 import com.android.volley.Request;
@@ -28,6 +27,7 @@ import com.android.volley.toolbox.JsonDataRequest;
 import com.android.volley.toolbox.RequestParameter;
 import com.android.volley.toolbox.ResponseWrapper;
 import com.android.volley.toolbox.VolleyErrorWrapper;
+import com.toaker.framework.R;
 import com.toaker.framework.core.surface.fragment.BaseFragment;
 import com.toaker.framework.utils.VolleyHelper;
 
@@ -58,17 +58,10 @@ public abstract class BasePtrFrameworkFragment<T extends ResponseWrapper> extend
 
     @Override
     protected View getCustomView(LayoutInflater inflater, FrameLayout containerView, Bundle savedInstanceState, boolean isRoot) {
-        mPtrLayout = new PtrClassicFrameLayout(getActivity());
-        FrameLayout frameLayout = new FrameLayout(getActivity());
-        for(int i=0;i<containerView.getChildCount();i++){
-            View view = containerView.getChildAt(i);
-            containerView.removeView(view);
-            frameLayout.addView(view);
-        }
-        mPtrLayout.addView(frameLayout);
-        mPtrLayout.initializePtr();
-        containerView.addView(mPtrLayout);
-        return super.getCustomView(inflater, containerView, savedInstanceState,isRoot);
+        inflater.inflate(R.layout.ptr_container_view,containerView);
+        mPtrLayout = (PtrClassicFrameLayout) containerView.findViewById(R.id.fi_ptr_layout);
+        FrameLayout container = (FrameLayout) containerView.findViewById(R.id.fi_ptr_container);
+        return super.getCustomView(inflater, container, savedInstanceState,isRoot);
     }
 
     @Override
@@ -111,7 +104,6 @@ public abstract class BasePtrFrameworkFragment<T extends ResponseWrapper> extend
      * @param error
      */
     protected void onError(VolleyErrorWrapper error){
-        Toast.makeText(getActivity(),error.getMessage(),Toast.LENGTH_SHORT).show();
     }
 
     protected abstract String getRequestUrl();
