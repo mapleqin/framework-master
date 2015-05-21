@@ -30,6 +30,7 @@ import com.android.volley.toolbox.ResponseWrapper;
 import com.android.volley.toolbox.VolleyErrorWrapper;
 import com.toaker.framework.R;
 import com.toaker.framework.core.inter.LoadMoreHandler;
+import com.toaker.framework.core.inter.OnFrameworkListView;
 import com.toaker.framework.core.surface.fragment.BaseFragment;
 import com.toaker.framework.core.view.AbsFrameworkListView;
 import com.toaker.framework.utils.ReflectUtils;
@@ -69,7 +70,7 @@ public abstract class BasePtrListFrameworkFragment<T extends ResponseWrapper> ex
 
     protected RequestQueue     mRequestQueue;
 
-    protected AbsFrameworkListView mListView;
+    protected OnFrameworkListView mListView;
 
     protected boolean              isLoadMore = false;
 
@@ -103,16 +104,16 @@ public abstract class BasePtrListFrameworkFragment<T extends ResponseWrapper> ex
     ListenerWrapper<T> mListenerWrapper = new ListenerWrapper<T>() {
         @Override
         public void onSuccess(T response) {
-            try {page_num = ReflectUtils.getFieldValue(response,ResponseWrapper.FIELD_NAME_PAGE_NUM);}catch (Exception e){}
-            try {page_size = ReflectUtils.getFieldValue(response,ResponseWrapper.FIELD_NAME_PAGE_SIZE);}catch (Exception e){}
-            try {total_count = ReflectUtils.getFieldValue(response,ResponseWrapper.FIELD_NAME_TOTAL_COUNT);}catch (Exception e){}
-            try {total_page = ReflectUtils.getFieldValue(response,ResponseWrapper.FIELD_NAME_TOTAL_PAGE);}catch (Exception e){}
             if(isLoadMore){
                 isLoadMore = false;
                 BasePtrListFrameworkFragment.this.onLoadMoreSuccess(response);
             }else {
                 BasePtrListFrameworkFragment.this.onSuccess(response);
             }
+            try {page_num = ReflectUtils.getFieldValue(response,ResponseWrapper.FIELD_NAME_PAGE_NUM);}catch (Exception e){}
+            try {page_size = ReflectUtils.getFieldValue(response,ResponseWrapper.FIELD_NAME_PAGE_SIZE);}catch (Exception e){}
+            try {total_count = ReflectUtils.getFieldValue(response,ResponseWrapper.FIELD_NAME_TOTAL_COUNT);}catch (Exception e){}
+            try {total_page = ReflectUtils.getFieldValue(response,ResponseWrapper.FIELD_NAME_TOTAL_PAGE);}catch (Exception e){}
         }
 
         @Override
@@ -129,12 +130,14 @@ public abstract class BasePtrListFrameworkFragment<T extends ResponseWrapper> ex
         startNetWork(method,null);
     }
 
-    protected void startNetWork(int method,RequestParameter params){
+    protected Request<T> startNetWork(int method,RequestParameter params){
         this.mRequestParameter = params;
         if(mRequestParameter != null){
             this.mRequestParameter.setMethod(method);
         }
-        mRequestQueue.add(new JsonDataRequest<T>(getTypeClass(),method,getRequestUrl(),params,mListenerWrapper,!isLoadMore));
+        JsonDataRequest<T> request = new JsonDataRequest<>(getTypeClass(), method, getRequestUrl(), params, mListenerWrapper, !isLoadMore);
+        mRequestQueue.add(request);
+        return request;
     }
 
     public abstract void onSuccess(T response);

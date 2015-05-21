@@ -26,6 +26,7 @@ import com.android.volley.toolbox.RequestParameter;
 import com.android.volley.toolbox.ResponseWrapper;
 import com.android.volley.toolbox.VolleyErrorWrapper;
 import com.toaker.framework.core.inter.LoadMoreHandler;
+import com.toaker.framework.core.inter.OnFrameworkListView;
 import com.toaker.framework.core.surface.fragment.BaseFragment;
 import com.toaker.framework.core.view.AbsFrameworkListView;
 import com.toaker.framework.utils.ReflectUtils;
@@ -64,7 +65,7 @@ public abstract class BaseListFrameworkFragment<T extends ResponseWrapper> exten
 
     protected RequestQueue     mRequestQueue;
 
-    protected AbsFrameworkListView mListView;
+    protected OnFrameworkListView mListView;
 
     protected boolean              isLoadMore = false;
 

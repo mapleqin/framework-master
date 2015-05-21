@@ -19,6 +19,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ListView;
 
+import com.toaker.framework.core.inter.OnFrameworkListView;
 import com.toaker.framework.utils.FrameworkLog;
 
 /**
@@ -29,7 +30,7 @@ import com.toaker.framework.utils.FrameworkLog;
  * @Description:
  * @Time Create by 2015/4/9 14:19
  */
-public class AbsFrameworkListView extends ListView {
+public class AbsFrameworkListView extends ListView implements OnFrameworkListView {
 
     public AbsFrameworkListView(Context context) {
         super(context);
@@ -43,6 +44,7 @@ public class AbsFrameworkListView extends ListView {
         super(context, attrs, defStyle);
     }
 
+    @Override
     public boolean checkCanDoRefresh() {
         if (getAdapter() == null || getAdapter().getCount() == 0) {
             return true;
@@ -51,6 +53,7 @@ public class AbsFrameworkListView extends ListView {
         return getFirstVisiblePosition() == 0 && getChildAt(0).getTop() == 0;
     }
 
+    @Override
     public void completeLoadMore(){
 
     }

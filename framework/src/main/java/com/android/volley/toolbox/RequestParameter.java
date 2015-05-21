@@ -46,9 +46,10 @@ public final class RequestParameter {
 
     public RequestParameter add(String key, String value) {
         if(TextUtils.isEmpty(key) || TextUtils.isEmpty(value)){
-            throw new IllegalArgumentException("Request parameter cannot be NULL");
+            //throw new IllegalArgumentException("Request parameter cannot be NULL");
+        }else {
+            mStringParams.put(key, value);
         }
-        mStringParams.put(key, value);
         return this;
     }
 

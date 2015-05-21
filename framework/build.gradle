@@ -91,8 +91,10 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 //    compile 'com.toaker.support.v7:appcompat:21.0.0'
     //compile 'com.android.support:appcompat-v7:21.0.3'
-    compile 'com.toaker.support.v4:android:21.0.1'
+    //compile 'com.toaker.support.v4:android:21.0.1'
+    compile 'com.github.ksoichiro:android-observablescrollview:1.5.1'
     compile 'com.loopj.android:android-async-http:1.4.6'
     compile 'com.toaker.common:tlog:1.1.0@aar'
+    compile 'com.nineoldandroids:library:2.4.0'
     //compile 'me.imid.swipebacklayout.lib:library:1.0.0'
 }
