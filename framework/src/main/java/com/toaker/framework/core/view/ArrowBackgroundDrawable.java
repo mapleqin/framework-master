@@ -38,7 +38,7 @@ public class ArrowBackgroundDrawable extends Drawable {
 
     private static final float RIGHT_SCALE          = 0.8f;
 
-    private int mBackgroundColor = 0xCC3C3C3C;
+    private int mBackgroundColor = 0xE53C3C3C;
 
     private Paint mPaint = new Paint();
 
@@ -92,10 +92,10 @@ public class ArrowBackgroundDrawable extends Drawable {
 
     private Path getPath(float cX){
         mPath.reset();
-        mPath.moveTo(cX, 0);
-        mPath.lineTo(cX + mTriangleSize / 2, mTriangleSize);
-        mPath.lineTo(cX - mTriangleSize / 2, mTriangleSize);
-        mPath.lineTo(cX, 0);
+        mPath.moveTo(cX, mTriangleSize * LEFT_SCALE);
+        mPath.lineTo(cX + mTriangleSize * RIGHT_SCALE, mTriangleSize);
+        mPath.lineTo(cX - mTriangleSize * RIGHT_SCALE, mTriangleSize);
+        mPath.lineTo(cX, mTriangleSize * LEFT_SCALE);
         mPath.close();
         return mPath;
     }

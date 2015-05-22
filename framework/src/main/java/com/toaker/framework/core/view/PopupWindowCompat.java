@@ -23,6 +23,8 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.PopupWindow;
 
+import com.toaker.framework.core.utils.ScaleController;
+
 import java.lang.reflect.Field;
 
 /**
@@ -95,6 +97,9 @@ public class PopupWindowCompat extends PopupWindow implements ViewTreeObserver.O
     }
 
     private void init() {
+        if(ScaleController.getInstance() != null){
+            mTriangleSize = ScaleController.getInstance().scaleHeight((int) mTriangleSize);
+        }
     }
 
     public float getTriangleSize() {

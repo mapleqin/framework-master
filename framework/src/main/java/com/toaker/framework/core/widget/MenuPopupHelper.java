@@ -26,6 +26,7 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 
 import com.toaker.framework.R;
+import com.toaker.framework.core.utils.ScaleController;
 import com.toaker.framework.core.view.ArrowBackgroundDrawable;
 import com.toaker.framework.core.view.PopupWindowCompat;
 
@@ -63,6 +64,9 @@ public class MenuPopupHelper implements PopupWindow.OnDismissListener {
     public MenuPopupHelper(Context context, View anchorView,int width) {
         mContext = context;
         this.width = width;
+        if(ScaleController.getInstance() != null){
+            this.width = ScaleController.getInstance().scaleWidth(this.width);
+        }
         mInflater = LayoutInflater.from(context);
         mAnchorView = anchorView;
         initialize();
@@ -73,6 +77,7 @@ public class MenuPopupHelper implements PopupWindow.OnDismissListener {
         mListView = (ListView) contentView.findViewById(R.id.menu_popup_list);
         mPopup = new PopupWindowCompat(contentView,width,
                 ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        contentView.setPadding(0, (int) mPopup.getTriangleSize(), 0, 0);
         mPopup.setBackgroundDrawable(new ArrowBackgroundDrawable(mPopup.getTriangleSize()));
         mPopup.setOutsideTouchable(true);
         mPopup.setFocusable(true);
@@ -89,6 +94,64 @@ public class MenuPopupHelper implements PopupWindow.OnDismissListener {
 
     public void setAdapter(ListAdapter adapter){
         mListView.setAdapter(adapter);
+    }
+
+    /**
+     * Returns the drawable that will be drawn between each item in the list.
+     *
+     * @return the current drawable drawn between list elements
+     */
+    public Drawable getDivider() {
+        return mListView.getDivider();
+    }
+
+    /**
+     * Sets the drawable that will be drawn between each item in the list. If the drawable does
+     * not have an intrinsic height, you should also call {@link #setDividerHeight(int)}
+     *
+     * @param divider The drawable to use.
+     */
+    public void setDivider(Drawable divider) {
+        mListView.setDivider(divider);
+    }
+
+    /**
+     * @return Returns the height of the divider that will be drawn between each item in the list.
+     */
+    public int getDividerHeight() {
+        return mListView.getDividerHeight();
+    }
+
+    /**
+     * Sets the height of the divider that will be drawn between each item in the list. Calling
+     * this will override the intrinsic height as set by {@link #setDivider(Drawable)}
+     *
+     * @param height The new height of the divider in pixels.
+     */
+    public void setDividerHeight(int height) {
+        mListView.setDividerHeight(height);
+    }
+
+    /**
+     * Enables or disables the drawing of the divider for header views.
+     *
+     * @param headerDividersEnabled True to draw the headers, false otherwise.
+     *
+     * @see #setFooterDividersEnabled(boolean)
+     */
+    public void setHeaderDividersEnabled(boolean headerDividersEnabled) {
+        mListView.setHeaderDividersEnabled(headerDividersEnabled);
+    }
+
+    /**
+     * Enables or disables the drawing of the divider for footer views.
+     *
+     * @param footerDividersEnabled True to draw the footers, false otherwise.
+     *
+     * @see #setHeaderDividersEnabled(boolean)
+     */
+    public void setFooterDividersEnabled(boolean footerDividersEnabled) {
+        mListView.setFooterDividersEnabled(footerDividersEnabled);
     }
 
     public void setAnchorView(View anchor) {

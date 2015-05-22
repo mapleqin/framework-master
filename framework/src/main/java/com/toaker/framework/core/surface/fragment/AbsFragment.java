@@ -2,6 +2,7 @@ package com.toaker.framework.core.surface.fragment;
 
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.toaker.framework.R;
+import com.toaker.framework.app.Framework;
 import com.toaker.framework.core.surface.FragmentParameter;
 import com.toaker.framework.core.surface.activity.ReusingActivity;
 import com.toaker.framework.core.surface.activity.ReusingActivityHelper;
@@ -68,6 +70,12 @@ public abstract class AbsFragment extends Fragment {
 		getActivity().onBackPressed();
 	}
 
+    public Context getContext(){
+        if(getActivity() != null){
+            return getActivity();
+        }
+        return Framework.getInstance().getContext();
+    }
 
 	/**
 	 * 注册广播接收者
