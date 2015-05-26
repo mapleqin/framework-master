@@ -30,12 +30,12 @@ import java.util.List;
 /**
  * Decorator for framework-master
  *
- * @author Toaker (ToakerQin@gmail.com)
+ * author Toaker (ToakerQin@gmail.com)
  *         (<a href='http://www.toaker.com'>http://www.toaker.com</a>)
  *
- * @Description: The function of the title bar base class
+ * Description: The function of the title bar base class
  *
- * @Time Create by 2015/3/31 10:59
+ * Time Create by 2015/3/31 10:59
  */
 public abstract class ActionBar {
 

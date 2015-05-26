@@ -23,12 +23,9 @@ import com.toaker.framework.core.utils.ScaleController;
 import com.toaker.framework.utils.ResourceUtils;
 
 /**
- * Decorator for framework-master
- *
- * @author Toaker [Toaker](ToakerQin@gmail.com)
+ * author Toaker [Toaker](ToakerQin@gmail.com)
  *         [Toaker](http://www.toaker.com)
- * @Description:
- * @Time Create by 2015/4/8 11:39
+ *  Create by 2015/4/8 11:39
  */
 public class Framework {
 

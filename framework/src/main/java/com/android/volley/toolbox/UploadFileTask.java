@@ -33,11 +33,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Decorator for XiaoDaoW
  *
- * @author Toaker [Toaker](ToakerQin@gmail.com)
+ * author Toaker [Toaker](ToakerQin@gmail.com)
  *         [Toaker](http://www.toaker.com)
- * @Time Create by 2015/5/7 16:47
+ * Create by 2015/5/7 16:47
  */
 public class UploadFileTask<T extends ResponseWrapper> {
 

@@ -26,10 +26,9 @@ import com.toaker.framework.core.surface.fragment.AbsFragment;
 /**
  * Decorator for framework-master
  *
- * @author Toaker [Toaker](ToakerQin@gmail.com)
+ * author Toaker [Toaker](ToakerQin@gmail.com)
  *         [Toaker](http://www.toaker.com)
- * @Description:
- * @Time Create by 2015/4/8 22:44
+ * Time Create by 2015/4/8 22:44
  */
 public class FragmentParameter implements Parcelable{
 

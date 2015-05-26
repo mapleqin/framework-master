@@ -32,12 +32,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Decorator for framework-master
  *
- * @author Toaker [Toaker](ToakerQin@gmail.com)
+ * author Toaker [Toaker](ToakerQin@gmail.com)
  *         [Toaker](http://www.toaker.com)
- * @Description:
- * @Time Create by 2015/4/19 18:58
+ *  Create by 2015/4/19 18:58
  */
 public class NativeDbManager {
 

@@ -27,10 +27,9 @@ import java.util.List;
 /**
  * Decorator for framework-master
  *
- * @author Toaker [Toaker](ToakerQin@gmail.com)
+ * author Toaker [Toaker](ToakerQin@gmail.com)
  *         [Toaker](http://www.toaker.com)
- * @Description:
- * @Time Create by 2015/4/2 10:59
+ * Time Create by 2015/4/2 10:59
  */
 public class ActionBarImpl extends ActionBar {
 

@@ -32,9 +32,9 @@ import com.toaker.framework.core.view.ComplexActionLayout;
 /**
  * Decorator for XiaoDaoW
  *
- * @author Toaker [Toaker](ToakerQin@gmail.com)
+ * author Toaker [Toaker](ToakerQin@gmail.com)
  *         [Toaker](http://www.toaker.com)
- * @Time Create by 2015/4/24 11:22
+ * Time Create by 2015/4/24 11:22
  */
 public class TitleBar extends FrameLayout {
 

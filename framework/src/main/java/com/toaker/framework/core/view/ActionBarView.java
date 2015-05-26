@@ -32,10 +32,9 @@ import java.util.List;
 /**
  * Decorator for framework-master
  *
- * @author Toaker [Toaker](ToakerQin@gmail.com)
+ * author Toaker [Toaker](ToakerQin@gmail.com)
  *         [Toaker](http://www.toaker.com)
- * @Description:
- * @Time Create by 2015/4/2 18:45
+ * Time Create by 2015/4/2 18:45
  */
 public class ActionBarView extends CoreViewGroup {
 

@@ -21,10 +21,9 @@ import android.view.View;
 /**
  * Decorator for framework-master
  *
- * @author Toaker [Toaker](ToakerQin@gmail.com)
+ * author Toaker [Toaker](ToakerQin@gmail.com)
  *         [Toaker](http://www.toaker.com)
- * @Description:
- * @Time Create by 2015/4/1 17:43
+ * Time Create by 2015/4/1 17:43
  */
 public final class PressSelector implements View.OnTouchListener {
 

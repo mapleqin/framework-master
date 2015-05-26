@@ -37,10 +37,9 @@ import java.util.Map;
 /**
  * Decorator for framework-master
  *
- * @author Toaker [Toaker](ToakerQin@gmail.com)
+ * author Toaker [Toaker](ToakerQin@gmail.com)
  *         [Toaker](http://www.toaker.com)
- * @Description:
- * @Time Create by 2015/4/6 15:35
+ * Time Create by 2015/4/6 15:35
  */
 public class NavigationBarImpl extends FrameLayout implements NavigationBar, View.OnClickListener {
 

@@ -40,9 +40,9 @@ import java.lang.annotation.RetentionPolicy;
 /**
  * Decorator for framework-master
  *
- * @author Toaker [Toaker](ToakerQin@gmail.com)
+ * author Toaker [Toaker](ToakerQin@gmail.com)
  *         [Toaker](http://www.toaker.com)
- * @Time Create by 2015/4/29 9:23
+ * Time Create by 2015/4/29 9:23
  */
 public class ComplexActionLayout extends FrameLayout {
 

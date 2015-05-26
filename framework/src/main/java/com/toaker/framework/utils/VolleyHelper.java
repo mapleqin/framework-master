@@ -22,10 +22,9 @@ import com.toaker.framework.app.Framework;
 /**
  * Decorator for framework-master
  *
- * @author Toaker [Toaker](ToakerQin@gmail.com)
+ * author Toaker [Toaker](ToakerQin@gmail.com)
  *         [Toaker](http://www.toaker.com)
- * @Description:
- * @Time Create by 2015/4/9 13:40
+ * Time Create by 2015/4/9 13:40
  */
 public final class VolleyHelper {
 

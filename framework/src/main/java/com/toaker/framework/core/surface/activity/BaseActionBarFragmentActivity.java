@@ -25,10 +25,9 @@ import com.toaker.framework.core.surface.FragmentParameter;
 /**
  * Decorator for framework-master
  *
- * @author Toaker [Toaker](ToakerQin@gmail.com)
+ * author Toaker [Toaker](ToakerQin@gmail.com)
  *         [Toaker](http://www.toaker.com)
- * @Description:
- * @Time Create by 2015/4/6 21:25
+ * Time Create by 2015/4/6 21:25
  */
 public class BaseActionBarFragmentActivity extends FragmentActivity {
 

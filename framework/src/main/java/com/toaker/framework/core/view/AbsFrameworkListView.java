@@ -25,10 +25,9 @@ import com.toaker.framework.utils.FrameworkLog;
 /**
  * Decorator for framework-master
  *
- * @author Toaker [Toaker](ToakerQin@gmail.com)
+ * author Toaker [Toaker](ToakerQin@gmail.com)
  *         [Toaker](http://www.toaker.com)
- * @Description:
- * @Time Create by 2015/4/9 14:19
+ * Time Create by 2015/4/9 14:19
  */
 public class AbsFrameworkListView extends ListView implements OnFrameworkListView {
 

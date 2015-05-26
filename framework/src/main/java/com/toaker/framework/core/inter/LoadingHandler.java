@@ -18,9 +18,9 @@ package com.toaker.framework.core.inter;
 /**
  * Decorator for framework-master
  *
- * @author Toaker [Toaker](ToakerQin@gmail.com)
+ * author Toaker [Toaker](ToakerQin@gmail.com)
  *         [Toaker](http://www.toaker.com)
- * @Time Create by 2015/5/6 14:43
+ * Time Create by 2015/5/6 14:43
  */
 public interface LoadingHandler {
 

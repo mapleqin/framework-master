@@ -29,12 +29,10 @@ import com.toaker.framework.core.surface.fragment.BaseFragment;
 import com.toaker.framework.utils.VolleyHelper;
 
 /**
- * Decorator for framework-master
  *
- * @author Toaker [Toaker](ToakerQin@gmail.com)
+ * author Toaker [Toaker](ToakerQin@gmail.com)
  *         [Toaker](http://www.toaker.com)
- * @Description:
- * @Time Create by 2015/4/9 11:48
+ * Time Create by 2015/4/9 11:48
  */
 public abstract class BaseFrameworkFragment<T extends ResponseWrapper> extends BaseFragment {
 

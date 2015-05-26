@@ -25,9 +25,9 @@ import android.graphics.drawable.Drawable;
 
 /**
  * Decorator for XiaoDaoW
- * <p/>
+ *
  * author Soulwolf
- * <p/>
+ *
  * Create by 2015/5/19 16:31
  */
 public class ArrowBackgroundDrawable extends Drawable {

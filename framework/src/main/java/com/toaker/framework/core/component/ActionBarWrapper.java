@@ -34,10 +34,9 @@ import java.lang.reflect.Field;
 /**
  * Decorator for framework-master
  *
- * @author Toaker [Toaker](ToakerQin@gmail.com)
+ * author Toaker [Toaker](ToakerQin@gmail.com)
  *         [Toaker](http://www.toaker.com)
- * @Description:
- * @Time Create by 2015/4/6 19:10
+ * Time Create by 2015/4/6 19:10
  */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public final class ActionBarWrapper {

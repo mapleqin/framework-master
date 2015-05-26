@@ -32,10 +32,9 @@ import com.toaker.framework.core.widget.PressSelector;
 /**
  * Decorator for framework-master
  *
- * @author Toaker [Toaker](ToakerQin@gmail.com)
+ * author Toaker [Toaker](ToakerQin@gmail.com)
  *         [Toaker](http://www.toaker.com)
- * @Description:
- * @Time Create by 2015/4/1 19:51
+ * Time Create by 2015/4/1 19:51
  */
 public class SubMenuView extends LinearLayout {
 

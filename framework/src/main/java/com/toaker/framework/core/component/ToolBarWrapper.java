@@ -29,9 +29,9 @@ import java.lang.reflect.Field;
 /**
  * Decorator for framework-master
  *
- * @author Toaker [Toaker](ToakerQin@gmail.com)
+ * author Toaker [Toaker](ToakerQin@gmail.com)
  *         [Toaker](http://www.toaker.com)
- * @Time Create by 2015/4/23 14:06
+ * Time Create by 2015/4/23 14:06
  */
 public class ToolBarWrapper extends ViewGroup {
 

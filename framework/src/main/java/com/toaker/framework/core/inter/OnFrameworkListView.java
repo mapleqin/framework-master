@@ -18,9 +18,9 @@ package com.toaker.framework.core.inter;
 /**
  * Decorator for XiaoDaoW
  *
- * @author Toaker [Toaker](ToakerQin@gmail.com)
+ * author Toaker [Toaker](ToakerQin@gmail.com)
  *         [Toaker](http://www.toaker.com)
- * @Time Create by 2015/5/17 3:08
+ * Time Create by 2015/5/17 3:08
  */
 public interface OnFrameworkListView {
 

@@ -38,10 +38,9 @@ import in.srain.cube.views.ptr.PtrHandler;
 /**
  * Decorator for framework-master
  *
- * @author Toaker [Toaker](ToakerQin@gmail.com)
+ * author Toaker [Toaker](ToakerQin@gmail.com)
  *         [Toaker](http://www.toaker.com)
- * @Description:
- * @Time Create by 2015/4/9 11:48
+ * Time Create by 2015/4/9 11:48
  */
 public abstract class BaseListFrameworkFragment<T extends ResponseWrapper> extends BaseFragment implements PtrHandler,LoadMoreHandler{
 
