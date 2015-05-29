@@ -5,4 +5,10 @@
         android:showAsAction="always"
         android:title="Volley" />
 
+    <item
+        android:id="@+id/upload"
+        android:icon="@drawable/tab_square_sel"
+        android:showAsAction="always"
+        android:title="上传图片" />
+
 </menu>

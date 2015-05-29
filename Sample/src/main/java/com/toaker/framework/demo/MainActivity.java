@@ -111,7 +111,10 @@ public class MainActivity extends BaseActionBarFragmentActivity implements Navig
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
         if(item.getItemId() == R.id.volley){
             //jumpFragment(new FragmentParameter(VitalHomeFragment.class));
-             startActivity(new Intent(this,VolleyActivity.class));
+            startActivity(new Intent(this,VolleyActivity.class));
+            return true;
+        }else if(item.getItemId() == R.id.upload){
+            startActivity(new Intent(this,UploadFileActivity.class));
             return true;
         }
         return super.onMenuItemSelected(featureId, item);

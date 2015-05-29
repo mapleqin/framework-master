@@ -34,6 +34,9 @@
             android:name=".VolleyActivity"
             android:label="@string/title_activity_volley" >
         </activity>
+        <activity
+            android:name=".UploadFileActivity" >
+        </activity>
 
         <activity
            android:name="com.toaker.framework.core.surface.activity.ReusingActivity"

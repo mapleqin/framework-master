@@ -27,6 +27,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyLog;
 import com.android.volley.entry.MultiPartEntity;
+import com.android.volley.entry.SimpleMultipartEntity;
 import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
@@ -163,24 +164,24 @@ public class JsonDataRequest<T extends ResponseWrapper> extends Request<T> {
         if(getMethod() != Method.POST){
             return super.getBody();
         }
-
-        MultiPartEntity multipartEntity = new MultiPartEntity();
+        SimpleMultipartEntity entity = new SimpleMultipartEntity();
+//        MultiPartEntity multipartEntity = new MultiPartEntity();
         for (Map.Entry<String, String> entry : params.getStringParams().entrySet()) {
-            multipartEntity.addPart(entry.getKey(), entry.getValue());
+            entity.addPart(entry.getKey(), entry.getValue());
         }
-        int currentIndex = 0;
-        int lastIndex = params.getFileParams().entrySet().size() - 1;
+        //int currentIndex = 0;
+        //int lastIndex = params.getFileParams().entrySet().size() - 1;
         for (Map.Entry<String, File> entry : params.getFileParams().entrySet()) {
-            multipartEntity.addPart(entry.getKey(),entry.getValue(),currentIndex == lastIndex);
-            currentIndex++;
+            entity.addPart(entry.getKey(),entry.getValue());
+            //currentIndex++;
         }
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         try{
-            multipartEntity.writeTo(bos);
+            entity.writeTo(bos);
         } catch (IOException e) {
             Log.e("", "IOException writing to ByteArrayOutputStream");
         }
-        mBodyContentType = multipartEntity.getContentType().getName();
+        mBodyContentType = entity.getContentType().getName();
         return bos.toByteArray();
     }
 }

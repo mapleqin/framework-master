@@ -130,11 +130,16 @@ public abstract class BasePtrListFrameworkFragment<T extends ResponseWrapper> ex
     }
 
     protected Request<T> startNetWork(int method,RequestParameter params){
+        return startNetWork(method,params,true);
+    }
+
+    protected Request<T> startNetWork(int method,RequestParameter params,boolean cache){
         this.mRequestParameter = params;
         if(mRequestParameter != null){
             this.mRequestParameter.setMethod(method);
         }
         JsonDataRequest<T> request = new JsonDataRequest<>(getTypeClass(), method, getRequestUrl(), params, mListenerWrapper, !isLoadMore);
+        request.setShouldCache(cache);
         mRequestQueue.add(request);
         return request;
     }

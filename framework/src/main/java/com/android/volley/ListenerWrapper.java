@@ -40,4 +40,6 @@ public abstract class ListenerWrapper<T> implements Response.Listener<T>,Respons
     public abstract void onSuccess(T response);
 
     public abstract void onError(VolleyErrorWrapper error);
+
+    public void onLoading(long total,long current){}
 }
