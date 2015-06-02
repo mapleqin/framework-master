@@ -613,4 +613,14 @@ public abstract class Request<T> implements Comparable<Request<T>>,RequestWrappe
     public void setRefreshNeeded(boolean refreshNeeded) {
         this.mRefreshNeeded = refreshNeeded;
     }
+
+    Response<T> mResponse;
+
+    public Response<T> getResponse() {
+        return mResponse;
+    }
+
+    public void setResponse(Response<T> mResponse) {
+        this.mResponse = mResponse;
+    }
 }

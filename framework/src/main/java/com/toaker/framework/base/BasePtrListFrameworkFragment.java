@@ -179,7 +179,7 @@ public abstract class BasePtrListFrameworkFragment<T extends ResponseWrapper> ex
                 mRequestParameter = new RequestParameter();
             }
            mRequestParameter.getStringParams().put(PARAMS_KEY_PAGE_NUM,String.valueOf(page));
-           startNetWork(mRequestParameter.getMethod(),mRequestParameter);
+           startNetWork(mRequestParameter.getMethod(),mRequestParameter,false);
         }else {
             noMoreData();
         }

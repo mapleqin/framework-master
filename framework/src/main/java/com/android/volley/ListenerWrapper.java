@@ -28,8 +28,8 @@ import com.android.volley.toolbox.VolleyErrorWrapper;
 public abstract class ListenerWrapper<T> implements Response.Listener<T>,Response.ErrorListener {
 
     @Override
-    public void onResponse(T response) {
-        onSuccess(response);
+    public void onResponse(T response,boolean isCache) {
+        onSuccess(response,isCache);
     }
 
     @Override
@@ -42,4 +42,8 @@ public abstract class ListenerWrapper<T> implements Response.Listener<T>,Respons
     public abstract void onError(VolleyErrorWrapper error);
 
     public void onLoading(long total,long current){}
+
+    public void onSuccess(T response,boolean cache){
+        onSuccess(response);
+    }
 }

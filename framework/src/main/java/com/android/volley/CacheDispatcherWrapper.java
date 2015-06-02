@@ -93,6 +93,9 @@ public class CacheDispatcherWrapper extends CacheDispatcher{
 
                 // Completely unexpired cache hit. Just deliver the response.
                 if(request.shouldCache()){
+                    if(response != null){
+                        response.setIsCache(true);
+                    }
                     mDelivery.postResponse(request, response);
                 }
 

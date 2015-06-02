@@ -26,7 +26,7 @@ public class Response<T> {
     /** Callback interface for delivering parsed responses. */
     public interface Listener<T> {
         /** Called when a response is received. */
-        public void onResponse(T response);
+        public void onResponse(T response,boolean isCache);
     }
 
     /** Callback interface for delivering error responses. */
@@ -63,6 +63,8 @@ public class Response<T> {
     /** True if this response was a soft-expired one and a second one MAY be coming. */
     public boolean intermediate = false;
 
+    public boolean isCache = false;
+
     /**
      * Returns whether this response is considered successful.
      */
@@ -81,5 +83,13 @@ public class Response<T> {
         this.result = null;
         this.cacheEntry = null;
         this.error = error;
+    }
+
+    public boolean isCache() {
+        return isCache;
+    }
+
+    public void setIsCache(boolean isCache) {
+        this.isCache = isCache;
     }
 }

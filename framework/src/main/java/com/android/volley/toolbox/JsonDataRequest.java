@@ -92,7 +92,7 @@ public class JsonDataRequest<T extends ResponseWrapper> extends Request<T> {
 
     @Override
     protected void deliverResponse(T response) {
-        mListener.onResponse(response);
+        mListener.onResponse(response,getResponse().isCache());
     }
 
     @Override
