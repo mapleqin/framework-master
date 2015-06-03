@@ -82,6 +82,11 @@ public abstract class BaseListFrameworkFragment<T extends ResponseWrapper> exten
     ListenerWrapper<T> mListenerWrapper = new ListenerWrapper<T>() {
         @Override
         public void onSuccess(T response) {
+        }
+
+        @Override
+        public void onSuccess(T response, boolean cache) {
+            super.onSuccess(response, cache);
             try {page_num = ReflectUtils.getFieldValue(response,ResponseWrapper.FIELD_NAME_PAGE_NUM);}catch (Exception e){}
             try {page_size = ReflectUtils.getFieldValue(response,ResponseWrapper.FIELD_NAME_PAGE_SIZE);}catch (Exception e){}
             try {total_count = ReflectUtils.getFieldValue(response,ResponseWrapper.FIELD_NAME_TOTAL_COUNT);}catch (Exception e){}
@@ -90,7 +95,7 @@ public abstract class BaseListFrameworkFragment<T extends ResponseWrapper> exten
                 isLoadMore = false;
                 BaseListFrameworkFragment.this.onLoadMoreSuccess(response);
             }else {
-                BaseListFrameworkFragment.this.onSuccess(response);
+                BaseListFrameworkFragment.this.onSuccess(response,cache);
             }
         }
 
@@ -109,14 +114,23 @@ public abstract class BaseListFrameworkFragment<T extends ResponseWrapper> exten
     }
 
     protected void startNetWork(int method,RequestParameter params){
+        startNetWork(method,params,!isLoadMore);
+    }
+
+    protected void startNetWork(int method,RequestParameter params,boolean cache){
         this.mRequestParameter = params;
         this.mRequestParameter.setMethod(method);
-        mRequestQueue.add(new JsonDataRequest<T>(getTypeClass(),method,getRequestUrl(),params,mListenerWrapper,!isLoadMore));
+        mRequestQueue.add(new JsonDataRequest<T>(getTypeClass(), method, getRequestUrl(), params, mListenerWrapper, !isLoadMore));
     }
 
     public abstract void onSuccess(T response);
 
     public abstract void onLoadMoreSuccess(T response);
+
+
+    public void onSuccess(T response,boolean cache){
+        onSuccess(response);
+    }
 
     /**
      *

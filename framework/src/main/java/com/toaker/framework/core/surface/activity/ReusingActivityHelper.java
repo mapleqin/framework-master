@@ -82,6 +82,9 @@ public class ReusingActivityHelper {
 
         public Intent build() {
             intent.putExtra(SINGLE_FRAGMENT_ACTIVITY_START_ME_PARAM, mParams);
+            if(mParams != null){
+                intent.addFlags(mParams.getFlags());
+            }
             return intent;
         }
     }

@@ -31,7 +31,7 @@ dependencies {
     compile 'com.github.ksoichiro:android-observablescrollview:1.5.1'
     compile 'com.loopj.android:android-async-http:1.4.6'
     compile 'com.toaker.common:tlog:1.0.0'
-    compile 'com.android.support:support-v4:22.1.1'
+    compile 'com.android.support:support-v4:22.2.0'
     compile 'com.nineoldandroids:library:2.4.0'
 }
 apply from: './gradle-mvn-push.gradle'

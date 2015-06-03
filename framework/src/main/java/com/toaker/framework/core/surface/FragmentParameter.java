@@ -20,8 +20,12 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.android.volley.Response;
 import com.toaker.framework.R;
 import com.toaker.framework.core.surface.fragment.AbsFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Decorator for framework-master
@@ -42,6 +46,8 @@ public class FragmentParameter implements Parcelable{
 
     public int                mResultCode = -1;
 
+    public int                mFlags;
+
     public int[]              mAnimationRes = new int[]{R.anim.fragment_slide_left_enter,R.anim.fragment_slide_right_exit,
             R.anim.fragment_slide_right_back_in,R.anim.fragment_slide_left_back_out};
 
@@ -55,60 +61,90 @@ public class FragmentParameter implements Parcelable{
         this.mTag = fragmentClass.getSimpleName();
     }
 
+    @SuppressWarnings("unchecked")
     public Class<? extends AbsFragment> getFragmentClass() {
         return mFragmentClass;
     }
 
-    public void setFragmentClass(Class<? extends AbsFragment> mFragmentClass) {
-        this.mFragmentClass = mFragmentClass;
+    /**
+     * @param flag {@link Intent} of Flags;
+     * @return  self;
+     */
+    public FragmentParameter addFlags(int flag){
+        mFlags |= flag;
+        return this;
+    }
+
+    public FragmentParameter clearFlags(){
+        mFlags = 0;
+        return this;
+    }
+
+    /**
+     * @param flag {@link Intent} is Flags;
+     * @return  self;
+     */
+    public FragmentParameter removeFlag(int flag){
+        mFlags &= ~flag;
+        return this;
+    }
+
+    public int getFlags(){
+        return mFlags;
     }
 
     public Intent getResultParams() {
         return mResultParams;
     }
 
-    public void setResultParams(Intent mResultParams) {
+    public FragmentParameter setResultParams(Intent mResultParams) {
         this.mResultParams = mResultParams;
+        return this;
     }
 
     public String getTag() {
         return mTag;
     }
 
-    public void setTag(String mTag) {
+    public FragmentParameter setTag(String mTag) {
         this.mTag = mTag;
+        return this;
     }
 
     public Bundle getParams() {
         return mParams;
     }
 
-    public void setParams(Bundle mParams) {
+    public FragmentParameter setParams(Bundle mParams) {
         this.mParams = mParams;
+        return this;
     }
 
     public int getRequestCode() {
         return mRequestCode;
     }
 
-    public void setRequestCode(int mRequestCode) {
+    public FragmentParameter setRequestCode(int mRequestCode) {
         this.mRequestCode = mRequestCode;
+        return this;
     }
 
     public int getResultCode() {
         return mResultCode;
     }
 
-    public void setResultCode(int mResultCode) {
+    public FragmentParameter setResultCode(int mResultCode) {
         this.mResultCode = mResultCode;
+        return this;
     }
 
     public int[] getAnimationRes() {
         return mAnimationRes;
     }
 
-    public void setAnimationRes(int[] mAnimationRes) {
+    public FragmentParameter setAnimationRes(int[] mAnimationRes) {
         this.mAnimationRes = mAnimationRes;
+        return this;
     }
 
 

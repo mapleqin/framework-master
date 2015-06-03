@@ -54,7 +54,12 @@ public abstract class BaseFrameworkFragment<T extends ResponseWrapper> extends B
     ListenerWrapper<T> mListenerWrapper = new ListenerWrapper<T>() {
         @Override
         public void onSuccess(T response) {
-            BaseFrameworkFragment.this.onSuccess(response);
+        }
+
+        @Override
+        public void onSuccess(T response, boolean cache) {
+            super.onSuccess(response, cache);
+            BaseFrameworkFragment.this.onSuccess(response,cache);
         }
 
         @Override
@@ -83,6 +88,11 @@ public abstract class BaseFrameworkFragment<T extends ResponseWrapper> extends B
     }
 
     public abstract void onSuccess(T response);
+
+
+    public void onSuccess(T response,boolean cache){
+        onSuccess(response);
+    }
 
     /**
      *

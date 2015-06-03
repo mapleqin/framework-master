@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 import com.toaker.framework.R;
 import com.toaker.framework.app.Framework;
@@ -44,12 +45,12 @@ public abstract class AbsFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-        FrameLayout containerView = (FrameLayout) inflater.inflate(R.layout.container_view,container,false);
+		RelativeLayout containerView = (RelativeLayout) inflater.inflate(R.layout.container_view,container,false);
         getCustomView(inflater,containerView, savedInstanceState,container != null);
         return containerView;
 	}
 
-    protected View getCustomView(LayoutInflater inflater, FrameLayout containerView, Bundle savedInstanceState,boolean isRoot){
+    protected View getCustomView(LayoutInflater inflater, ViewGroup containerView, Bundle savedInstanceState,boolean isRoot){
         return inflater.inflate(getResourceLayoutId(),containerView,isRoot);
     }
 

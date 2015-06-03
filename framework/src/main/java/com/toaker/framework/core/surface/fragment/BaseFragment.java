@@ -32,7 +32,7 @@ public abstract class BaseFragment extends AbsFragment implements View.OnClickLi
     }
 
     @Override
-    protected View getCustomView(LayoutInflater inflater, FrameLayout containerView, Bundle savedInstanceState, boolean isRoot) {
+    protected View getCustomView(LayoutInflater inflater, ViewGroup containerView, Bundle savedInstanceState, boolean isRoot) {
         super.getCustomView(inflater, containerView, savedInstanceState,isRoot);
         mErrorLayout = attachErrorLayout(inflater,containerView);
         mEmptyLayout = attachEmptyLayout(inflater,containerView);

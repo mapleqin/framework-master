@@ -18,6 +18,7 @@ package com.toaker.framework.base;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.android.volley.ListenerWrapper;
@@ -56,7 +57,7 @@ public abstract class BasePtrFrameworkFragment<T extends ResponseWrapper> extend
     }
 
     @Override
-    protected View getCustomView(LayoutInflater inflater, FrameLayout containerView, Bundle savedInstanceState, boolean isRoot) {
+    protected View getCustomView(LayoutInflater inflater, ViewGroup containerView, Bundle savedInstanceState, boolean isRoot) {
         inflater.inflate(R.layout.ptr_container_view,containerView);
         mPtrLayout = (PtrClassicFrameLayout) containerView.findViewById(R.id.fi_ptr_layout);
         FrameLayout container = (FrameLayout) containerView.findViewById(R.id.fi_ptr_container);
@@ -74,7 +75,12 @@ public abstract class BasePtrFrameworkFragment<T extends ResponseWrapper> extend
     ListenerWrapper<T> mListenerWrapper = new ListenerWrapper<T>() {
         @Override
         public void onSuccess(T response) {
-            BasePtrFrameworkFragment.this.onSuccess(response);
+        }
+
+        @Override
+        public void onSuccess(T response, boolean cache) {
+            super.onSuccess(response, cache);
+            BasePtrFrameworkFragment.this.onSuccess(response,cache);
         }
 
         @Override
@@ -93,10 +99,14 @@ public abstract class BasePtrFrameworkFragment<T extends ResponseWrapper> extend
 
     protected void startNetWork(int method,RequestParameter params){
         this.mRequestParameter = params;
-        mRequestQueue.add(new JsonDataRequest<T>(getTypeClass(),method,getRequestUrl(),params,mListenerWrapper));
+        mRequestQueue.add(new JsonDataRequest<T>(getTypeClass(), method, getRequestUrl(), params, mListenerWrapper));
     }
 
     public abstract void onSuccess(T response);
+
+    public void onSuccess(T response,boolean cache){
+        onSuccess(response);
+    }
 
     /**
      *

@@ -87,7 +87,7 @@ public abstract class BasePtrListFrameworkFragment<T extends ResponseWrapper> ex
     }
 
     @Override
-    protected View getCustomView(LayoutInflater inflater, FrameLayout containerView, Bundle savedInstanceState, boolean isRoot) {
+    protected View getCustomView(LayoutInflater inflater, ViewGroup containerView, Bundle savedInstanceState, boolean isRoot) {
         inflater.inflate(R.layout.ptr_container_view,containerView);
         mPtrLayout = (PtrClassicFrameLayout) containerView.findViewById(R.id.fi_ptr_layout);
         FrameLayout container = (FrameLayout) containerView.findViewById(R.id.fi_ptr_container);
@@ -103,11 +103,16 @@ public abstract class BasePtrListFrameworkFragment<T extends ResponseWrapper> ex
     ListenerWrapper<T> mListenerWrapper = new ListenerWrapper<T>() {
         @Override
         public void onSuccess(T response) {
+        }
+
+        @Override
+        public void onSuccess(T response, boolean cache) {
+            super.onSuccess(response, cache);
             if(isLoadMore){
                 isLoadMore = false;
                 BasePtrListFrameworkFragment.this.onLoadMoreSuccess(response);
             }else {
-                BasePtrListFrameworkFragment.this.onSuccess(response);
+                BasePtrListFrameworkFragment.this.onSuccess(response,cache);
             }
             try {page_num = ReflectUtils.getFieldValue(response,ResponseWrapper.FIELD_NAME_PAGE_NUM);}catch (Exception e){}
             try {page_size = ReflectUtils.getFieldValue(response,ResponseWrapper.FIELD_NAME_PAGE_SIZE);}catch (Exception e){}
@@ -130,7 +135,7 @@ public abstract class BasePtrListFrameworkFragment<T extends ResponseWrapper> ex
     }
 
     protected Request<T> startNetWork(int method,RequestParameter params){
-        return startNetWork(method,params,true);
+        return startNetWork(method,params,!isLoadMore);
     }
 
     protected Request<T> startNetWork(int method,RequestParameter params,boolean cache){
@@ -145,6 +150,10 @@ public abstract class BasePtrListFrameworkFragment<T extends ResponseWrapper> ex
     }
 
     public abstract void onSuccess(T response);
+
+    public void onSuccess(T response,boolean cache){
+        onSuccess(response);
+    }
 
     public abstract void onLoadMoreSuccess(T response);
 
