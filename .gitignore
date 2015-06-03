@@ -1,9 +1,11 @@
 .gradle
 /local.properties
-/.idea
+/.idea/
 .DS_Store
 /build
 /framework/build
 /Sample/build
 /gradle.properties
 
+.idea
+gradlew.bat
