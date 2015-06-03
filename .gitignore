@@ -18,3 +18,5 @@ gradlew.bat
 /.idea/misc.xml
 /.idea/modules.xml
 /.idea/copyright/profiles_settings.xml
+/.idea/copyright/*.xml
+profiles_settings.xml
