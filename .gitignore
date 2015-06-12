@@ -20,3 +20,4 @@ gradlew.bat
 /.idea/copyright/profiles_settings.xml
 /.idea/copyright/*.xml
 profiles_settings.xml
+/gradle
