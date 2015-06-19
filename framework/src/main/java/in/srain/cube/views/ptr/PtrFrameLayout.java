@@ -2,6 +2,7 @@ package in.srain.cube.views.ptr;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -37,6 +38,8 @@ public class PtrFrameLayout extends ViewGroup {
     private static byte STATUS_AUTO_SCROLL_AT_ONCE = 0x01;
     private static byte STATUS_AUTO_SCROLL_LATER = 0x02;
     protected final String LOG_TAG = "ptr-frame-" + ++ID;
+
+    protected static final long REFRESH_TIME_OUT = 6000;
     protected View mContent;
     // optional config for define header and content in xml file
     private int mHeaderId = 0;
@@ -73,6 +76,8 @@ public class PtrFrameLayout extends ViewGroup {
     private PtrIndicator mPtrIndicator;
     private boolean mHasSendCancelEvent = false;
     private boolean mPinContent = false;
+
+    Handler mHanlder = new Handler();
 
     public PtrFrameLayout(Context context) {
         this(context, null);
@@ -538,8 +543,19 @@ public class PtrFrameLayout extends ViewGroup {
         }
         if (mPtrHandler != null) {
             mPtrHandler.onRefreshBegin(this);
+            mHanlder.removeCallbacks(mRefreshTimeOut);
+            mHanlder.postDelayed(mRefreshTimeOut,REFRESH_TIME_OUT);
         }
     }
+
+    Runnable mRefreshTimeOut = new Runnable() {
+        @Override
+        public synchronized void run() {
+            if(isPullToRefresh()){
+                refreshComplete();
+            }
+        }
+    };
 
     /**
      * If at the top and not in loading, reset
